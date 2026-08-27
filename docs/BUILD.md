@@ -241,4 +241,4 @@ overwritten.
 - [vcpkg](https://vcpkg.io/)
 - [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html)
 - [Upstream ARINC 615A Tool Suite](https://git.thomas-vogt.de/thomas-vogt/arinc_615a)
-- [CLI sibling repository](https://github.com/Hitheshkaranth/arinc-615a-cli-tool-suite)
+- [ARINC 615A CLI Tool Suite](https://github.com/Hitheshkaranth/arinc-615a-cli-tool-suite) — the command-line front end onto the same protocol core

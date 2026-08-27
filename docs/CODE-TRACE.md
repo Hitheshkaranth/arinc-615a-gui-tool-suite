@@ -15,14 +15,14 @@ python docs/render-code-trace.py
 ## 01 — What this document covers
 A trace of the graphical data loader in this repository: how a menu action becomes a UDP datagram, and how a protocol callback arriving on a worker thread becomes a row in a table widget.
 
-This is the companion to the [CLI tool suite](https://github.com/Hitheshkaranth/arinc-615a-cli-tool-suite)'s engineering trace. Both applications drive the *same* host protocol core — `lib/arinc_615a` — and nothing below re-describes that core. Where the wire protocol matters, this document points at the CLI trace rather than repeating it. What is new here is everything between the operator and that core: the wizard shell, the handler-to-signal adapters, the Qt model layer, and the thread boundary that separates them.
+The subject is everything between the operator and the protocol core: the wizard shell, the handler-to-signal adapters, the Qt model layer, and the thread boundary that separates them. The core itself — the shared operation state machine, the protocol file codec, the TFTP decorations, the timers and the status codes — is documented alongside this in `docs/PROTOCOL-CORE.md`, so a reader never has to leave this repository to follow a byte from a wizard to the network.
 
 | Target | Role | Covered |
 | --- | --- | --- |
 | arinc_615a_data_loader_gui | **Built.** Qt application shell — 90 lines, no protocol logic of its own | §5 |
 | arinc_615a_dla_qt | **Built.** Data loader application library — main window, five operation adapters, four wizards | §6–§16 |
 | arinc_615a_qt | **Built.** Reusable Qt models and dialogues over ARINC 615A types | §14–§15 |
-| arinc_615a | **Built.** Protocol core, shared with the CLI section | CLI trace §9–§17 |
+| arinc_615a | **Built.** Protocol core — no Qt, shared unmodified with the command-line tool suite | `PROTOCOL-CORE.md` |
 
 #### How to read it
 
@@ -615,7 +615,7 @@ Confirming the stack end to end takes one FIND query: *Targets → FIND Query*, 
 ---
 
 ## 20 — Same protocol, different driver
-For anyone arriving from the CLI trace, the mapping is one-to-one.
+For anyone who knows the command-line tool suite, the mapping is one-to-one. Both drive the third column identically; only the first two differ.
 
 | CLI | GUI | Shared |
 | --- | --- | --- |
@@ -688,7 +688,7 @@ The FIND address combo box shows its default `255.255.255.255` against a red-ora
 
 #### Companion documents
 
-- [ARINC 615A CLI Tool Suite](https://github.com/Hitheshkaranth/arinc-615a-cli-tool-suite) — its `docs/CODE-TRACE.md` §09–§17 cover the protocol core, the wire layers and the status codes in depth
+- `docs/PROTOCOL-CORE.md` — the shared operation state machine, the protocol file codec, the TFTP decorations, the timer model and the status codes
 - `docs/ARCHITECTURE.md` — the layer map and the thread boundary
 - `docs/BUILD.md` — the build and run procedure in reproducible form
 

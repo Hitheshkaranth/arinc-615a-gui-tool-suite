@@ -208,7 +208,7 @@ figcaption{font-size:13px; color:var(--muted); margin-top:9px; max-width:64ch; f
   <div class="prose">
     <p class="lede">A trace of the graphical data loader in this repository: how a menu action becomes a UDP datagram, and how a protocol callback arriving on a worker thread becomes a row in a table widget.</p>
 
-    <p>This is the companion to the <a href="https://github.com/Hitheshkaranth/arinc-615a-cli-tool-suite">CLI tool suite</a>'s engineering trace. Both applications drive the <em>same</em> host protocol core — <code>lib/arinc_615a</code> — and nothing below re-describes that core. Where the wire protocol matters, this document points at the CLI trace rather than repeating it. What is new here is everything between the operator and that core: the wizard shell, the handler-to-signal adapters, the Qt model layer, and the thread boundary that separates them.</p>
+    <p>The subject is everything between the operator and the protocol core: the wizard shell, the handler-to-signal adapters, the Qt model layer, and the thread boundary that separates them. The core itself — the shared operation state machine, the protocol file codec, the TFTP decorations, the timers and the status codes — is documented alongside this in <code>docs/PROTOCOL-CORE.md</code>, so a reader never has to leave this repository to follow a byte from a wizard to the network.</p>
   </div>
 
   <div class="tw">
@@ -218,7 +218,7 @@ figcaption{font-size:13px; color:var(--muted); margin-top:9px; max-width:64ch; f
         <tr><td class="m">arinc_615a_data_loader_gui</td><td><strong>Built.</strong> Qt application shell — 90 lines, no protocol logic of its own</td><td>§5</td></tr>
         <tr><td class="m">arinc_615a_dla_qt</td><td><strong>Built.</strong> Data loader application library — main window, five operation adapters, four wizards</td><td>§6–§16</td></tr>
         <tr><td class="m">arinc_615a_qt</td><td><strong>Built.</strong> Reusable Qt models and dialogues over ARINC 615A types</td><td>§14–§15</td></tr>
-        <tr><td class="m">arinc_615a</td><td><strong>Built.</strong> Protocol core, shared with the CLI section</td><td>CLI trace §9–§17</td></tr>
+        <tr><td class="m">arinc_615a</td><td><strong>Built.</strong> Protocol core — no Qt, shared unmodified with the command-line tool suite</td><td><code>PROTOCOL-CORE.md</code></td></tr>
       </tbody>
     </table>
   </div>
@@ -882,7 +882,8 @@ python -m aqt install-qt windows desktop 6.8.3 win64_msvc2022_64 -O &lt;prefix&g
     <h3>vcpkg</h3>
     <p><code>msvc-base</code> sets <code>VCPKG_APPLOCAL_DEPS=OFF</code>, so Boost, libxml++, spdlog and their dependencies are not copied next to the executable. Put <code>cmake-build-msvc-static-debug-gui/vcpkg_installed/x64-windows/debug/bin</code> on <code>PATH</code> — nineteen DLLs including the Boost <code>-mt-gd-x64-1_92</code> set, <code>libxml2</code>, <code>xml++-vc143-5.0-1</code> and <code>spdlogd</code>.</p>
 
-    <p><code>scriptsun-gui.bat</code> does this and launches; <code>build.bat</code> at the repository root chains configure, build, deploy and run in one command.</p>
+    <p><code>scripts
+un-gui.bat</code> does this and launches; <code>build.bat</code> at the repository root chains configure, build, deploy and run in one command.</p>
 
     <h3>First run</h3>
     <p>The window comes up with three empty statistic group boxes, a menu bar of <em>Targets / Operations / Manage</em>, and three toolbars. <em>Upload Operation</em> and <em>Manage Media Sets</em> are greyed until the media set scan finishes. Diagnostics go to <code>%TEMP%/arinc_615a_data_loader_gui.log</code> at <code>info</code> level.</p>
@@ -895,7 +896,7 @@ python -m aqt install-qt windows desktop 6.8.3 win64_msvc2022_64 -O &lt;prefix&g
   <span class="sec-no">20 — Comparison</span>
   <h2>Same protocol, different driver</h2>
   <div class="prose">
-    <p>For anyone arriving from the CLI trace, the mapping is one-to-one.</p>
+    <p>For anyone who knows the command-line tool suite, the mapping is one-to-one. Both drive the third column identically; only the first two differ.</p>
   </div>
 
   <div class="tw">
@@ -972,7 +973,7 @@ python -m aqt install-qt windows desktop 6.8.3 win64_msvc2022_64 -O &lt;prefix&g
 
     <h3>Companion documents</h3>
     <ul class="tight">
-      <li><a href="https://github.com/Hitheshkaranth/arinc-615a-cli-tool-suite">ARINC 615A CLI Tool Suite</a> — its <code>docs/CODE-TRACE.md</code> §09–§17 cover the protocol core, the wire layers and the status codes in depth</li>
+      <li><code>docs/PROTOCOL-CORE.md</code> — the shared operation state machine, the protocol file codec, the TFTP decorations, the timer model and the status codes</li>
       <li><code>docs/ARCHITECTURE.md</code> — the layer map and the thread boundary</li>
       <li><code>docs/BUILD.md</code> — the build and run procedure in reproducible form</li>
     </ul>

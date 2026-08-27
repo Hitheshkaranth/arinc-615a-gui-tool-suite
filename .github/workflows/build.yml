@@ -95,9 +95,31 @@ jobs:
           git diff --exit-code docs/CODE-TRACE.md \
             || { echo "::error::docs/CODE-TRACE.md is stale - run python docs/render-code-trace.py"; exit 1; }
 
-      - name: No Qt-free claims broken, no dead figure links
+      - name: No dead figure links
         run: |
           for f in $(grep -oE 'docs/figures/[A-Za-z0-9._-]+\.png' README.md docs/*.md | cut -d: -f2 | sort -u); do
             test -f "$f" || { echo "::error::missing figure $f"; exit 1; }
           done
           echo "all referenced figures present"
+
+      - name: Internal documentation links resolve
+        run: |
+          fail=0
+          for f in README.md CONTRIBUTING.md docs/*.md; do
+            d=$(dirname "$f")
+            for l in $(grep -ohE '\]\([A-Za-z0-9._/-]+\.(md|html|png)\)' "$f" | sed 's/](//; s/)//'); do
+              test -f "$d/$l" || { echo "::error::$f links to missing $l"; fail=1; }
+            done
+          done
+          exit $fail
+
+      - name: Documentation is self-contained
+        run: |
+          # This repository must not send a reader to another repository to
+          # learn how it works. Attribution is fine; deferring content is not.
+          if grep -rnE 'see the CLI repository|points at the CLI|Read it for anything|CLI trace §'                README.md CONTRIBUTING.md docs/*.md docs/code-trace-html/*.html; then
+            echo "::error::documentation defers content to another repository"
+            exit 1
+          fi
+          test -f docs/PROTOCOL-CORE.md || { echo "::error::docs/PROTOCOL-CORE.md missing"; exit 1; }
+          echo "documentation is self-contained"

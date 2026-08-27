@@ -1,6 +1,6 @@
 # Documentation map
 
-Six documents. Start at the row that matches what you are trying to do.
+Seven documents. Start at the row that matches what you are trying to do.
 
 | I want to… | Read | Time |
 | --- | --- | --- |
@@ -11,6 +11,7 @@ Six documents. Start at the row that matches what you are trying to do.
 | **Install it on an air-gapped machine** | [OFFLINE-INSTALL.md](OFFLINE-INSTALL.md) | 20 min |
 | **Understand the codebase before changing it** | [ARCHITECTURE.md](ARCHITECTURE.md) | 30 min |
 | **Follow one operation through the code, line by line** | [CODE-TRACE.md](CODE-TRACE.md) | 1.5 h |
+| **Understand the wire protocol beneath the GUI** | [PROTOCOL-CORE.md](PROTOCOL-CORE.md) | 45 min |
 | **Read or circulate that trace as a document** | [code-trace-html/arinc615a-gui-engineering.html](code-trace-html/arinc615a-gui-engineering.html) | 1.5 h |
 
 ---
@@ -35,6 +36,14 @@ layer, resources, persistence, the build, and three thread-affinity defects.
 The same 22 sections, laid out for reading and circulation: index rail,
 collapsible function entries, light and dark themes. Self-contained — no
 external assets beyond the webfont.
+
+### [PROTOCOL-CORE.md](PROTOCOL-CORE.md) — the layers beneath the adapters
+The shared operation state machine and its initialisation handshake, the DLP
+watchdog, how abort is delivered, the protocol file codec and filename table,
+what ARINC 615A adds to TFTP (option names, WAIT and ABORT error packets, the
+retry layer), the three nested timers, and the full status code table. This is
+`lib/arinc_615a`, which carries no Qt and is shared with the command-line tool
+suite.
 
 ### [OFFLINE-INSTALL.md](OFFLINE-INSTALL.md) — installing without a network
 The five network dependencies and how to remove each one, the transfer bundle
@@ -81,16 +90,20 @@ build on Windows 11.
    pattern and the wizard skeleton, in order.
 4. [CODE-TRACE.md](CODE-TRACE.md) §09 (FIND) — the simplest complete operation.
 5. Whichever of §10–§13 you need.
-6. [../CONTRIBUTING.md](../CONTRIBUTING.md) — the local changes that must
+6. [PROTOCOL-CORE.md](PROTOCOL-CORE.md) — when you need to know what the core is
+   doing underneath, or are diagnosing something on the wire.
+7. [../CONTRIBUTING.md](../CONTRIBUTING.md) — the local changes that must
    survive an upstream merge.
 
 ---
 
-## Relationship to the CLI repository
+## Self-contained by design
 
-[arinc-615a-cli-tool-suite](https://github.com/Hitheshkaranth/arinc-615a-cli-tool-suite)
-documents the same protocol core from the command-line side. Its
-`docs/CODE-TRACE.md` §09–§17 cover the wire layers — the protocol file codec,
-the TFTP shim, the timers, the status codes — in more depth than this repository
-does, because those layers are shared and unchanged. Read it for anything below
-the adapter layer.
+Everything needed to understand, build, run and install this application is in
+this repository. The wire layers are documented in
+[PROTOCOL-CORE.md](PROTOCOL-CORE.md) rather than linked to the command-line tool
+suite, even though the code is shared and identical — a reader here should never
+have to open another repository to follow a byte from a wizard to the network.
+
+The command-line tool suite is credited where it is relevant, but nothing in
+these documents depends on it being reachable.

@@ -4,9 +4,10 @@ How the graphical data loader is put together, and why. Read this before
 changing code.
 
 The protocol core is not described here beyond what a GUI author needs — for the
-wire layers, see the CLI repository's
-[docs/ARCHITECTURE.md](https://github.com/Hitheshkaranth/arinc-615a-cli-tool-suite/blob/main/docs/ARCHITECTURE.md)
-and `docs/CODE-TRACE.md` §09–§17. That code is shared and unmodified.
+wire layers see [PROTOCOL-CORE.md](PROTOCOL-CORE.md), which covers the shared
+operation state machine, the protocol file codec, the TFTP decorations, the
+timer model and the status codes. That code is shared with the command-line tool
+suite and unmodified, but it is documented here rather than linked elsewhere.
 
 ---
 

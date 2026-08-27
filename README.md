@@ -45,9 +45,15 @@ that speaks that protocol. It can:
 It is the **graphical section** of the upstream
 [ARINC 615A Tool Suite](https://git.thomas-vogt.de/thomas-vogt/arinc_615a) by
 Thomas Vogt, extracted into a standalone project with added build glue,
-scripts and documentation. Its sibling repository,
+scripts and documentation.
+
+**This repository is self-contained.** The protocol core is vendored, and the
+wire layers beneath the GUI are documented here in
+[docs/PROTOCOL-CORE.md](docs/PROTOCOL-CORE.md) rather than linked elsewhere —
+nothing you need to build, run, install or understand it lives in another
+repository. A command-line front end onto the same core exists as
 [arinc-615a-cli-tool-suite](https://github.com/Hitheshkaranth/arinc-615a-cli-tool-suite),
-is the command-line section — **the same protocol core, a different driver**.
+credited where relevant but never depended upon.
 
 > The protocol core (`lib/arinc_615a`) is vendored here rather than fetched,
 > because the graphical section cannot build without it. What is excluded is the
@@ -74,6 +80,10 @@ what the protocol does.
 
 `Targets.json` uses the same schema as the CLI's `--targets-list`, so a target
 list built in either front end is readable by the other.
+
+The protocol layers they share are documented in full in
+[docs/PROTOCOL-CORE.md](docs/PROTOCOL-CORE.md), so choosing the GUI does not
+mean reading the CLI's documentation to understand the wire.
 
 ---
 
@@ -193,6 +203,7 @@ Steps 11 and 15 are the only ones that cross threads, and both are explicit
   ────────────────────────────────────────────────────────────────────────
   arinc_615a  (core)             host/target state machines, protocol file
                                  codec, FIND, TFTP + 615A options
+                                 → docs/PROTOCOL-CORE.md
 ```
 
 Each layer knows only the one below it. The upward path is always a Qt signal or
@@ -441,6 +452,7 @@ whether `vcpkg_installed` is reusable at all.
 | **[docs/README.md](docs/README.md)** | **Start here** — a map of the documents, what each is for, and a reading order for a new maintainer |
 | **[CONTRIBUTING.md](CONTRIBUTING.md)** | The local changes that must survive an upstream merge, layout rules, line-ending rules |
 | **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** | How the codebase works — layer map, the thread boundary, directory-by-directory walkthrough, the adapter pattern, design conventions |
+| **[docs/PROTOCOL-CORE.md](docs/PROTOCOL-CORE.md)** | The layers beneath the adapters — the shared operation state machine and its initialisation handshake, the DLP watchdog, abort delivery, the protocol file codec and filename table, what ARINC 615A adds to TFTP, the three nested timers, and the status code table |
 | **[docs/CODE-TRACE.md](docs/CODE-TRACE.md)** | A 22-section trace from `main()` to the wire and back through the queued signals, every entry carrying its `file:line`. Covers concurrency, the shell, each operation, the model layer, resources, the build, and three thread-affinity defects |
 | **[docs/code-trace-html/arinc615a-gui-engineering.html](docs/code-trace-html/arinc615a-gui-engineering.html)** | The same trace as a styled, self-contained page for reading or circulation |
 | **[docs/OFFLINE-INSTALL.md](docs/OFFLINE-INSTALL.md)** | Air-gapped installation — what needs the network and how to remove each one, the transfer bundle, checksum manifest, how to prove the result is offline, and the ABI caveat |
