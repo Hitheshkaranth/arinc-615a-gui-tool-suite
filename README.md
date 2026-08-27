@@ -17,6 +17,7 @@ Discover avionics targets, read part numbers, upload and download software over 
 [![vcpkg](https://img.shields.io/badge/vcpkg-manifest-1E90FF?style=for-the-badge&logo=microsoft&logoColor=white)](https://vcpkg.io/)
 [![Licence](https://img.shields.io/badge/Licence-MPL--2.0-A6CE39?style=for-the-badge&logo=mozilla&logoColor=white)](LICENSE)
 [![Protocol](https://img.shields.io/badge/ARINC-615A--4-1F6FEB?style=for-the-badge&logo=airbus&logoColor=white)](#protocol-background)
+[![Download](https://img.shields.io/badge/Download-Windows%20x64-2EA043?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Hitheshkaranth/arinc_615a_gui-tool-suite/releases/latest)
 
 </div>
 
@@ -236,6 +237,24 @@ dialogue.
 
 ---
 
+## Download a build
+
+A prebuilt Windows x64 release is attached to every
+[release](https://github.com/Hitheshkaranth/arinc_615a_gui-tool-suite/releases/latest).
+Unzip it and run `arinc_615a_data_loader_gui.exe` — Qt, Boost, libxml++ and
+spdlog are all in the folder, so nothing needs installing. The plugin folders
+(`platforms`, `styles`, `imageformats`, `tls`, `networkinformation`) must stay
+next to the executable.
+
+If Windows reports a missing `VCRUNTIME140.dll`, run the bundled
+`vc_redist.x64.exe` once. It is the only thing in the archive that touches the
+system.
+
+Build it yourself instead if you need a debug build, or if you are on an
+isolated network — see [Offline installation](#offline-installation).
+
+---
+
 ## Quick start — one command
 
 ```bat
@@ -344,6 +363,49 @@ The last two live in the Qt application configuration location, which is why
 
 ---
 
+## Offline installation
+
+The build has **five** network dependencies. Remove them and it works
+air-gapped.
+
+| # | Dependency | Offline answer |
+| --- | --- | --- |
+| 1 | Six sibling projects cloned by `FetchContent` | Vendor them in-tree — the project already has the hook |
+| 2 | ~84 vcpkg packages | Carry a populated `vcpkg_installed` tree |
+| 3 | Qt 6.8.3 | Copy the Qt prefix; it is relocatable |
+| 4 | CMake 4.3.4 | Carry the official binary zip |
+| 5 | MSVC 2022 build tools | Create an offline layout with `--layout` |
+
+Number 1 is the one that catches people out, and the project already supports
+it — `CMakeLists.txt` prefers an in-tree checkout if one exists. Populate the
+hook once, on a connected machine:
+
+```bat
+scriptsetch-deps.bat            REM clone or update all six
+scriptsetch-deps.bat --status   REM report what is vendored
+```
+
+Then configure with the network out of the picture:
+
+```bat
+scripts\offline-configure.bat
+```
+
+which adds `-DVCPKG_MANIFEST_INSTALL=OFF` so vcpkg uses `vcpkg_installed` as
+delivered rather than reaching out to check the manifest. It refuses to start if
+a precondition is missing, naming what is absent instead of failing as a CMake
+error minutes later.
+
+**[docs/OFFLINE-INSTALL.md](docs/OFFLINE-INSTALL.md)** is the full procedure —
+bundle contents and sizes, checksum manifest, step by step for both machines,
+how to prove the result is genuinely offline, and the ABI caveat that decides
+whether `vcpkg_installed` is reusable at all.
+
+> Verified by redirecting `git.thomas-vogt.de` to an invalid host and
+> configuring: zero clone attempts, zero vcpkg installs, zero errors.
+
+---
+
 ## Repository layout
 
 ```
@@ -365,6 +427,7 @@ The last two live in the Qt application configuration location, which is why
 │       └── resources/                SVG icon set (.qrc, AUTORCC)
 ├── cmake/                            install rules, presets, graphviz options
 ├── scripts/                          env · configure · build · deploy · run
+│                                     fetch-deps · offline-configure · release-build
 ├── docs/                             BUILD.md · ARCHITECTURE.md · CODE-TRACE.md
 └── build.bat                         one command: configure + build + deploy + run
 ```
@@ -380,6 +443,7 @@ The last two live in the Qt application configuration location, which is why
 | **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** | How the codebase works — layer map, the thread boundary, directory-by-directory walkthrough, the adapter pattern, design conventions |
 | **[docs/CODE-TRACE.md](docs/CODE-TRACE.md)** | A 22-section trace from `main()` to the wire and back through the queued signals, every entry carrying its `file:line`. Covers concurrency, the shell, each operation, the model layer, resources, the build, and three thread-affinity defects |
 | **[docs/code-trace-html/arinc615a-gui-engineering.html](docs/code-trace-html/arinc615a-gui-engineering.html)** | The same trace as a styled, self-contained page for reading or circulation |
+| **[docs/OFFLINE-INSTALL.md](docs/OFFLINE-INSTALL.md)** | Air-gapped installation — what needs the network and how to remove each one, the transfer bundle, checksum manifest, how to prove the result is offline, and the ABI caveat |
 | **[docs/BUILD.md](docs/BUILD.md)** | Every build stage in order, the Qt acquisition options, the environment traps, and the deployment steps |
 
 ---

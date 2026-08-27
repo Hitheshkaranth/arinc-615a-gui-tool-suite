@@ -1,6 +1,6 @@
 # Documentation map
 
-Five documents. Start at the row that matches what you are trying to do.
+Six documents. Start at the row that matches what you are trying to do.
 
 | I want to… | Read | Time |
 | --- | --- | --- |
@@ -8,6 +8,7 @@ Five documents. Start at the row that matches what you are trying to do.
 | **Understand what ARINC 615A is and how it works on a network** | [../README.md → How it works](../README.md#how-it-works--the-layers) | 10 min |
 | **Decide between this and the CLI** | [../README.md → CLI or GUI](../README.md#cli-or-gui--which-do-you-want) | 2 min |
 | **Fix a build that is failing** | [BUILD.md](BUILD.md) | 5 min |
+| **Install it on an air-gapped machine** | [OFFLINE-INSTALL.md](OFFLINE-INSTALL.md) | 20 min |
 | **Understand the codebase before changing it** | [ARCHITECTURE.md](ARCHITECTURE.md) | 30 min |
 | **Follow one operation through the code, line by line** | [CODE-TRACE.md](CODE-TRACE.md) | 1.5 h |
 | **Read or circulate that trace as a document** | [code-trace-html/arinc615a-gui-engineering.html](code-trace-html/arinc615a-gui-engineering.html) | 1.5 h |
@@ -35,6 +36,13 @@ The same 22 sections, laid out for reading and circulation: index rail,
 collapsible function entries, light and dark themes. Self-contained — no
 external assets beyond the webfont.
 
+### [OFFLINE-INSTALL.md](OFFLINE-INSTALL.md) — installing without a network
+The five network dependencies and how to remove each one, the transfer bundle
+with sizes and a checksum manifest, the procedure split across the connected and
+the air-gapped machine, how to *prove* the result is genuinely offline, and the
+vcpkg ABI caveat that decides whether a prepared `vcpkg_installed` is reusable
+at all. **Read it before preparing media**, not after.
+
 ### [BUILD.md](BUILD.md) — building, in detail
 Every build stage in order, the two ways to obtain Qt and why one is chosen, the
 `vcvars64.bat` environment traps, the deployment steps, and the failure modes
@@ -60,6 +68,7 @@ build on Windows 11.
 | `gui-find-wizard-complete.png` | FIND wizard page 2 — query complete, *Finish* enabled |
 | `gui-main-window.png` | Main window before any operation |
 | `gui-main-after-find.png` | Main window after one FIND query — TX counter populated |
+| `release-bundle-running.png` | The published release bundle running with a minimal `PATH` |
 
 ---
 

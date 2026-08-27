@@ -9,3 +9,18 @@
 user-history.db
 symbology-style.db
 compile_commands.json
+
+# Vendored sibling projects - populated by scripts/fetch-deps.bat.
+# A local cache for offline builds, never repository content.
+/helper/
+/qt_icon_resources/
+/arinc-649/
+/arinc_665/
+/tftp/
+/commands/
+
+# Offline bundle staging
+/offline-bundle/
+
+# Release staging
+/dist/
