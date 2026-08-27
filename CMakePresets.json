@@ -2,6 +2,6 @@
   "version": 10,
 
   "include": [
-    "CMakePresetsMsvc.json"
+    "cmake/presets/CMakePresetsMsvc.json"
   ]
 }

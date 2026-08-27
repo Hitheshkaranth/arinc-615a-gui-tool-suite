@@ -208,7 +208,7 @@ figcaption{font-size:13px; color:var(--muted); margin-top:9px; max-width:64ch; f
   <div class="prose">
     <p class="lede">A trace of the graphical data loader in this repository: how a menu action becomes a UDP datagram, and how a protocol callback arriving on a worker thread becomes a row in a table widget.</p>
 
-    <p>This is the companion to the CLI engineering trace. Both applications drive the <em>same</em> host protocol core — <code>lib/arinc_615a</code> — and nothing below re-describes that core. Where the wire protocol matters, this document points at the CLI trace rather than repeating it. What is new here is everything between the operator and that core: the wizard shell, the handler-to-signal adapters, the Qt model layer, and the thread boundary that separates them.</p>
+    <p>This is the companion to the <a href="https://github.com/Hitheshkaranth/arinc-615a-cli-tool-suite">CLI tool suite</a>'s engineering trace. Both applications drive the <em>same</em> host protocol core — <code>lib/arinc_615a</code> — and nothing below re-describes that core. Where the wire protocol matters, this document points at the CLI trace rather than repeating it. What is new here is everything between the operator and that core: the wizard shell, the handler-to-signal adapters, the Qt model layer, and the thread boundary that separates them.</p>
   </div>
 
   <div class="tw">
@@ -219,8 +219,6 @@ figcaption{font-size:13px; color:var(--muted); margin-top:9px; max-width:64ch; f
         <tr><td class="m">arinc_615a_dla_qt</td><td><strong>Built.</strong> Data loader application library — main window, five operation adapters, four wizards</td><td>§6–§16</td></tr>
         <tr><td class="m">arinc_615a_qt</td><td><strong>Built.</strong> Reusable Qt models and dialogues over ARINC 615A types</td><td>§14–§15</td></tr>
         <tr><td class="m">arinc_615a</td><td><strong>Built.</strong> Protocol core, shared with the CLI section</td><td>CLI trace §9–§17</td></tr>
-        <tr><td class="m">arinc_615a_commands</td><td>Command-line section — <em>excluded</em> from this build</td><td>§17</td></tr>
-        <tr><td class="m">arinc_615a_operation</td><td>Command-line section — <em>excluded</em> from this build</td><td>§17, §20</td></tr>
       </tbody>
     </table>
   </div>
@@ -231,7 +229,7 @@ figcaption{font-size:13px; color:var(--muted); margin-top:9px; max-width:64ch; f
     <p>Function blocks carry their source location as <code>file:line</code>, against the tree as it stands after the GUI section was restored.</p>
     <div class="note">
       <span class="lbl">Provenance</span>
-      <p>The GUI section was present in the upstream distribution but had been stripped from this working copy when the tree was reduced to a CLI-only variant. It was restored from the original archive unmodified; the only code written for this exercise is the CMake section switching described in §17.</p>
+      <p>The application and library sources are the upstream distribution's graphical section, carried here unmodified. The protocol core is vendored alongside them because the graphical section cannot build without it. Everything written for this repository is build glue and documentation — the top-level <code>CMakeLists.txt</code>, the presets, the scripts described in §17–§19, and this trace.</p>
     </div>
   </div>
 </section>
@@ -772,21 +770,19 @@ wizard()-&gt;setOption( QWizard::NoCancelButton, true );      // remove plain Ca
 </section>
 
 <section id="s17">
-  <span class="sec-no">17 — Isolation</span>
-  <h2>Isolating the CLI from the GUI</h2>
+  <span class="sec-no">17 — Build layout</span>
+  <h2>How the graphical section stands alone</h2>
   <div class="prose">
-    <p>Upstream, both sections build together and Qt's presence alone decides whether the graphical half appears. That is convenient but implicit: there is no way to say "build the GUI and nothing else", and a CLI build on a machine that happens to have Qt installed silently acquires the Qt libraries.</p>
+    <p>Upstream, both sections build from one tree and Qt's presence alone decides whether the graphical half appears. That is convenient but implicit: there is no way to say "build the GUI and nothing else", and a CLI build on a machine that happens to have Qt installed silently acquires the Qt libraries.</p>
 
-    <p>Two options make the split explicit. <code>CMakeLists.txt</code>:</p>
+    <p>This repository takes the explicit route — it <em>is</em> the graphical section. Qt is a hard requirement rather than an optional extra, declared once at the top level:</p>
 
-    <pre><code>option( ARINC_615A_BUILD_CLI "Build the ARINC 615A command-line section" ON )
-option( ARINC_615A_BUILD_GUI "Build the ARINC 615A graphical section (requires Qt 6)" OFF )
+    <pre><code># Qt 6 is mandatory here - this project is the graphical section only.
+find_package( Qt6 REQUIRED COMPONENTS Widgets Network )</code></pre>
 
-if( NOT ARINC_615A_BUILD_CLI AND NOT ARINC_615A_BUILD_GUI )
-  message( FATAL_ERROR "Enable at least one of ARINC_615A_BUILD_CLI / ARINC_615A_BUILD_GUI" )
-endif()</code></pre>
+    <p>The <code>REQUIRED</code> is the whole statement of intent: a configure that cannot find Qt fails immediately with a clear message, rather than succeeding and quietly producing nothing. <code>lib/CMakeLists.txt</code> adds the core and the two Qt libraries; <code>app/CMakeLists.txt</code> adds the one application. There are no section switches because there is only one section.</p>
 
-    <p>They gate four places.</p>
+    <p>Reaching this arrangement from the combined tree meant gating four places, and the table records what had to move — useful if you ever merge the two back together.</p>
   </div>
 
   <div class="tw">
@@ -802,7 +798,7 @@ endif()</code></pre>
   </div>
 
   <div class="prose">
-    <p><code>lib/arinc_615a</code> is added unconditionally — it is the shared core, and both sections are meaningless without it.</p>
+    <p>In this repository <code>lib/arinc_615a</code> is simply always added — it is the shared core, and the graphical section is meaningless without it.</p>
 
     <p>The <code>InstallPackage.cmake</code> change is the one that is easy to miss. Its <code>LIBS</code> list originally named <code>$&lt;TARGET_FILE_DIR:arinc_615a_commands&gt;</code> unconditionally, and a generator expression naming a target that was never added is a hard configure error, not a warning:</p>
 
@@ -847,18 +843,16 @@ python -m aqt install-qt windows desktop 6.8.3 win64_msvc2022_64 -O &lt;prefix&g
     </div>
 
     <h3>The preset</h3>
-    <p><code>msvc-static-debug-gui</code> in <code>CMakePresetsMsvc.json</code> inherits <code>msvc-base</code> and overrides four things:</p>
+    <p><code>msvc-static-debug-gui</code> in <code>cmake/presets/CMakePresetsMsvc.json</code> inherits <code>msvc-base</code>:</p>
 
-    <pre><code>"binaryDir": "cmake-build-msvc-static-debug-gui",
-"cacheVariables": {
-  "CMAKE_BUILD_TYPE": "Debug",
-  "ARINC_615A_BUILD_CLI": "OFF",
-  "ARINC_615A_BUILD_GUI": "ON",
+    <pre><code>"cacheVariables": {
+  "VCPKG_APPLOCAL_DEPS": "OFF",
   "CMAKE_PREFIX_PATH": "$env{QT6_DIR}",
-  "CMAKE_COMPILE_WARNING_AS_ERROR": "False"
+  "CMAKE_COMPILE_WARNING_AS_ERROR": "False",
+  "CMAKE_BUILD_TYPE": "Debug"
 }</code></pre>
 
-    <p>A distinct <code>binaryDir</code> keeps the existing CLI build tree untouched. The Qt prefix comes from an environment variable rather than a hard-coded path so the preset stays portable. The build preset restricts targets to <code>arinc_615a_data_loader_gui</code>, which is what keeps the ARINC 665 GUI applications — also made available by <code>FetchContent</code> — out of the build.</p>
+    <p>The Qt prefix comes from an environment variable rather than a hard-coded path so the preset stays portable. The build preset restricts targets to <code>arinc_615a_data_loader_gui</code>, which is what keeps the ARINC 665 GUI applications — also made available by <code>FetchContent</code> — out of the build.</p>
 
     <p>Warnings-as-errors is relaxed for this preset because AUTOMOC and AUTOUIC generated translation units and the Qt headers do not survive <code>/W4 /WX</code>. This is a property of building Qt code with this toolchain, not of the section split.</p>
 
@@ -888,7 +882,7 @@ python -m aqt install-qt windows desktop 6.8.3 win64_msvc2022_64 -O &lt;prefix&g
     <h3>vcpkg</h3>
     <p><code>msvc-base</code> sets <code>VCPKG_APPLOCAL_DEPS=OFF</code>, so Boost, libxml++, spdlog and their dependencies are not copied next to the executable. Put <code>cmake-build-msvc-static-debug-gui/vcpkg_installed/x64-windows/debug/bin</code> on <code>PATH</code> — nineteen DLLs including the Boost <code>-mt-gd-x64-1_92</code> set, <code>libxml2</code>, <code>xml++-vc143-5.0-1</code> and <code>spdlogd</code>.</p>
 
-    <p><code>run-gui.bat</code> does this and launches.</p>
+    <p><code>scriptsun-gui.bat</code> does this and launches; <code>build.bat</code> at the repository root chains configure, build, deploy and run in one command.</p>
 
     <h3>First run</h3>
     <p>The window comes up with three empty statistic group boxes, a menu bar of <em>Targets / Operations / Manage</em>, and three toolbars. <em>Upload Operation</em> and <em>Manage Media Sets</em> are greyed until the media set scan finishes. Diagnostics go to <code>%TEMP%/arinc_615a_data_loader_gui.log</code> at <code>info</code> level.</p>
@@ -967,18 +961,20 @@ python -m aqt install-qt windows desktop 6.8.3 win64_msvc2022_64 -O &lt;prefix&g
   <span class="sec-no">22 — References</span>
   <h2>Sources</h2>
   <div class="prose">
-    <h3>Traced in this working copy</h3>
+    <h3>Traced in this repository</h3>
     <ul class="tight">
       <li><code>app/arinc_615a_data_loader_gui/</code> — application entry point</li>
       <li><code>lib/arinc_615a_dla_qt/</code> — main window, configuration, five adapters, four wizards, resources</li>
       <li><code>lib/arinc_615a_qt/</code> — twelve models, two dialogues, status-code translation</li>
-      <li><code>CMakeLists.txt</code>, <code>lib/CMakeLists.txt</code>, <code>app/CMakeLists.txt</code>, <code>InstallPackage.cmake</code>, <code>CMakePresetsMsvc.json</code> — section switching</li>
+      <li><code>CMakeLists.txt</code>, <code>lib/CMakeLists.txt</code>, <code>app/CMakeLists.txt</code>, <code>cmake/InstallPackage.cmake</code>, <code>cmake/presets/CMakePresetsMsvc.json</code> — build layout</li>
+      <li><code>scripts/</code>, <code>build.bat</code> — environment resolution, configure, build, deploy, run</li>
     </ul>
 
     <h3>Companion documents</h3>
     <ul class="tight">
-      <li>ARINC 615A CLI Engineering Trace — the protocol core, the wire layers, status codes</li>
-      <li><code>doc/GUI_BUILD_AND_RUN.md</code> — the build and run procedure in reproducible form</li>
+      <li><a href="https://github.com/Hitheshkaranth/arinc-615a-cli-tool-suite">ARINC 615A CLI Tool Suite</a> — its <code>docs/CODE-TRACE.md</code> §09–§17 cover the protocol core, the wire layers and the status codes in depth</li>
+      <li><code>docs/ARCHITECTURE.md</code> — the layer map and the thread boundary</li>
+      <li><code>docs/BUILD.md</code> — the build and run procedure in reproducible form</li>
     </ul>
 
     <h3>Standards</h3>

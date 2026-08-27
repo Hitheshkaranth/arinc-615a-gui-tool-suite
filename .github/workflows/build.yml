@@ -1,0 +1,103 @@
+name: build
+
+# Windows only. The graphical section requires Qt 6 and windeployqt, and the
+# deployment story this repository documents is Windows-specific. A cold vcpkg
+# build is slow on a hosted runner, so the vcpkg binary cache is persisted
+# between runs.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  QT_VERSION: 6.8.3
+
+jobs:
+  windows:
+    name: Windows / MSVC
+    runs-on: windows-2022
+    timeout-minutes: 120
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          arch: win64_msvc2022_64
+          cache: true
+
+      - name: Set up vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: '' # resolved from the vcpkg submodule/baseline
+          runVcpkgInstall: false
+
+      - name: Cache vcpkg binaries
+        uses: actions/cache@v4
+        with:
+          path: ~/AppData/Local/vcpkg/archives
+          key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json') }}
+          restore-keys: vcpkg-${{ runner.os }}-
+
+      - name: Configure
+        shell: cmd
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          set "QT6_DIR=%Qt6_DIR%"
+          cmake --preset msvc-static-debug-gui
+
+      - name: Build
+        shell: cmd
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cmake --build --preset msvc-static-debug-gui
+
+      - name: Check the executable exists
+        shell: pwsh
+        run: |
+          $exe = "cmake-build-msvc-static-debug-gui/app/arinc_615a_data_loader_gui/arinc_615a_data_loader_gui.exe"
+          if (-not (Test-Path $exe)) { throw "build reported success but $exe is missing" }
+          Get-Item $exe | Select-Object Name,Length
+
+      - name: Deploy Qt runtime
+        shell: cmd
+        run: |
+          "%Qt6_DIR%\bin\windeployqt.exe" --debug --no-translations --no-opengl-sw ^
+            cmake-build-msvc-static-debug-gui\app\arinc_615a_data_loader_gui\arinc_615a_data_loader_gui.exe
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: arinc_615a_data_loader_gui-windows-x64
+          path: cmake-build-msvc-static-debug-gui/app/arinc_615a_data_loader_gui/
+          if-no-files-found: error
+
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install renderer dependencies
+        run: pip install beautifulsoup4
+
+      - name: CODE-TRACE.md is in sync with its HTML source
+        run: |
+          python docs/render-code-trace.py
+          git diff --exit-code docs/CODE-TRACE.md \
+            || { echo "::error::docs/CODE-TRACE.md is stale - run python docs/render-code-trace.py"; exit 1; }
+
+      - name: No Qt-free claims broken, no dead figure links
+        run: |
+          for f in $(grep -oE 'docs/figures/[A-Za-z0-9._-]+\.png' README.md docs/*.md | cut -d: -f2 | sort -u); do
+            test -f "$f" || { echo "::error::missing figure $f"; exit 1; }
+          done
+          echo "all referenced figures present"
