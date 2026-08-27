@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Thomas Vogt</author>
+ <class>Arinc615aDlaQt::DownloadOperationSelectDownloadDirectoryWidget</class>
+ <widget class="QGroupBox" name="Arinc615aDlaQt::DownloadOperationSelectDownloadDirectoryWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>352</width>
+    <height>122</height>
+   </rect>
+  </property>
+  <property name="title">
+   <string>Download Base Directory</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLineEdit" name="downloadBaseDirectory">
+        <property name="toolTip">
+         <string>Base Directory for Download Files</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="selectDownloadBaseDirectory">
+        <property name="toolTip">
+         <string>Select Base Directory for Download Files</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../../../qt_icon_resources/lib/qt_icon_resources/font_awesome/font_awesome.qrc">
+          <normaloff>:/fa/regular/folder-open.svg</normaloff>:/fa/regular/folder-open.svg</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="createDownloadDirectory">
+     <property name="toolTip">
+      <string>If activated a download specific directory is created within the Download Base Directory.</string>
+     </property>
+     <property name="text">
+      <string>Create download directory</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../../qt_icon_resources/lib/qt_icon_resources/font_awesome/font_awesome.qrc"/>
+ </resources>
+ <connections/>
+</ui>

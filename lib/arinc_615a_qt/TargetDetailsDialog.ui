@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Thomas Vogt</author>
+ <class>Arinc615aQt::TargetDetailsDialog</class>
+ <widget class="QDialog" name="Arinc615aQt::TargetDetailsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>280</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Target Details</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="lblTargetAddress">
+     <property name="text">
+      <string>Target Address</string>
+     </property>
+     <property name="buddy">
+      <cstring>targetAddress</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="targetAddress"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="lblThwId">
+     <property name="text">
+      <string>THW ID</string>
+     </property>
+     <property name="buddy">
+      <cstring>thwId</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="thwId"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="lblTypeName">
+     <property name="text">
+      <string>Type Name</string>
+     </property>
+     <property name="buddy">
+      <cstring>typeName</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="typeName"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="lblPosition">
+     <property name="text">
+      <string>Position</string>
+     </property>
+     <property name="buddy">
+      <cstring>position</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="position"/>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="lblLiteralName">
+     <property name="text">
+      <string>Literal Name</string>
+     </property>
+     <property name="buddy">
+      <cstring>literalName</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="literalName"/>
+   </item>
+   <item row="5" column="1">
+    <widget class="QLineEdit" name="manufacturerCode"/>
+   </item>
+   <item row="7" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="lblManufacturerCode">
+     <property name="text">
+      <string>Manufacturer Code</string>
+     </property>
+     <property name="buddy">
+      <cstring>manufacturerCode</cstring>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>targetAddress</tabstop>
+  <tabstop>thwId</tabstop>
+  <tabstop>typeName</tabstop>
+  <tabstop>position</tabstop>
+  <tabstop>literalName</tabstop>
+  <tabstop>manufacturerCode</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Arinc615aQt::TargetDetailsDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Arinc615aQt::TargetDetailsDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

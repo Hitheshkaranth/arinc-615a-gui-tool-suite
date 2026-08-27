@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Thomas Vogt</author>
+ <class>Arinc615aDlaQt::SettingsDialog</class>
+ <widget class="QDialog" name="Arinc615aDlaQt::SettingsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>692</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ARINC 615A Data Loader Settings</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../qt_icon_resources/lib/qt_icon_resources/font_awesome/font_awesome.qrc">
+    <normaloff>:/fa/solid/gear.svg</normaloff>:/fa/solid/gear.svg</iconset>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="findTab">
+      <attribute name="title">
+       <string>ARINC 615A FIND</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QGroupBox" name="findGroupBox">
+         <property name="title">
+          <string>ARINC 615A FIND</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="findPortLabel">
+            <property name="text">
+             <string>FIND &amp;Port</string>
+            </property>
+            <property name="buddy">
+             <cstring>findPort</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="findPort">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>65535</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="findTimeoutLabel">
+            <property name="text">
+             <string>FIND &amp;Timeout</string>
+            </property>
+            <property name="buddy">
+             <cstring>findTimeout</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="findTimeout">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="suffix">
+             <string> Seconds</string>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>60</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="findDynamicPort">
+            <property name="text">
+             <string>&amp;Dynamic Source Port</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="dlpTab">
+      <attribute name="title">
+       <string>ARINC 615A DLP</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="tftpGroupBox">
+         <property name="title">
+          <string>TFTP</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_4">
+          <item row="0" column="0">
+           <widget class="QLabel" name="tftpServerPortLabel">
+            <property name="text">
+             <string>TFTP Server &amp;Port</string>
+            </property>
+            <property name="buddy">
+             <cstring>tftpServerPort</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="tftpServerPort">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>65535</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="tftpTimeoutLabel">
+            <property name="text">
+             <string>TFTP &amp;Timeout (T0)</string>
+            </property>
+            <property name="buddy">
+             <cstring>tftpTimeout</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="tftpTimeout">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="suffix">
+             <string> Seconds</string>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>60</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="tftpRetriesLabel">
+            <property name="text">
+             <string>TFTP &amp;Retries</string>
+            </property>
+            <property name="buddy">
+             <cstring>tftpRetries</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="tftpRetries">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QCheckBox" name="tftpTransferSizeOption">
+            <property name="text">
+             <string>Transfer &amp;Size Option Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="tftpDally">
+            <property name="text">
+             <string>&amp;Dally Enabled</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="tftpBlockSizeOption">
+         <property name="title">
+          <string>TFTP &amp;Blocksize Option</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <layout class="QFormLayout" name="formLayout_5">
+          <item row="0" column="0">
+           <widget class="QLabel" name="tftpBlockSizeOptionValueLabel">
+            <property name="text">
+             <string>Blocksize Option Value</string>
+            </property>
+            <property name="buddy">
+             <cstring>tftpBlockSizeOptionValue</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="tftpBlockSizeOptionValue">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimum">
+             <number>8</number>
+            </property>
+            <property name="maximum">
+             <number>65464</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="tftpTimeoutOption">
+         <property name="title">
+          <string>TFTP T&amp;imeout Option</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <layout class="QFormLayout" name="formLayout_6">
+          <item row="0" column="0">
+           <widget class="QLabel" name="tftpTimeoutOptionValueLabel">
+            <property name="text">
+             <string>Timeout Value</string>
+            </property>
+            <property name="buddy">
+             <cstring>tftpTimeoutOptionValue</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="tftpTimeoutOptionValue">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="suffix">
+             <string> Seconds</string>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>60</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="arinc615a">
+         <property name="title">
+          <string>ARINC 615A</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::FieldGrowthPolicy::ExpandingFieldsGrow</enum>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="arinc615aTimeoutLabel">
+            <property name="text">
+             <string>ARINC 615A Timeout (T1)</string>
+            </property>
+            <property name="buddy">
+             <cstring>arinc615aTimeout</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="arinc615aTimeout">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="suffix">
+             <string> Seconds</string>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>60</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="arinc615aRetriesLabel">
+            <property name="text">
+             <string>ARINC 615A Retries</string>
+            </property>
+            <property name="buddy">
+             <cstring>arinc615aRetries</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="arinc615aRetries">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="arinc615aPortOption">
+            <property name="statusTip">
+             <string>ARINC 615A Port Option</string>
+            </property>
+            <property name="text">
+             <string>Dynamic TFTP Server Port</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="logging">
+         <property name="title">
+          <string>Logging</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <widget class="QCheckBox" name="logProtocolFiles">
+            <property name="text">
+             <string>Log Protocol Files</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="operationsTab">
+      <attribute name="title">
+       <string>ARINC 615A &amp;Operations</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QGroupBox" name="mediaSetManagerDirectoryBox">
+         <property name="title">
+          <string>Media Set Manager</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLineEdit" name="mediaSetManagerDirectory">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="selectMediaSetManagerDirectory">
+            <property name="toolTip">
+             <string>Select Media Set Manager Directory</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../../qt_icon_resources/lib/qt_icon_resources/font_awesome/font_awesome.qrc">
+              <normaloff>:/fa/solid/folder-open.svg</normaloff>:/fa/solid/folder-open.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="downloadOperation">
+         <property name="title">
+          <string>&amp;Download Operation</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QGroupBox" name="downloadBaseDirectoryBox">
+            <property name="title">
+             <string>Download Base Directory</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLineEdit" name="downloadBaseDirectory">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="selectDownloadBaseDirectory">
+               <property name="toolTip">
+                <string>Select Download Base Directory</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../../qt_icon_resources/lib/qt_icon_resources/font_awesome/font_awesome.qrc">
+                 <normaloff>:/fa/solid/folder-open.svg</normaloff>:/fa/solid/folder-open.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="verifyDownloadFiles">
+            <property name="text">
+             <string>Verify Download Files</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>findPort</tabstop>
+  <tabstop>findTimeout</tabstop>
+  <tabstop>findDynamicPort</tabstop>
+  <tabstop>tftpServerPort</tabstop>
+  <tabstop>tftpTimeout</tabstop>
+  <tabstop>tftpRetries</tabstop>
+  <tabstop>tftpDally</tabstop>
+  <tabstop>tftpTransferSizeOption</tabstop>
+  <tabstop>tftpBlockSizeOption</tabstop>
+  <tabstop>tftpBlockSizeOptionValue</tabstop>
+  <tabstop>tftpTimeoutOption</tabstop>
+  <tabstop>tftpTimeoutOptionValue</tabstop>
+  <tabstop>arinc615aTimeout</tabstop>
+  <tabstop>arinc615aRetries</tabstop>
+  <tabstop>arinc615aPortOption</tabstop>
+  <tabstop>logProtocolFiles</tabstop>
+  <tabstop>mediaSetManagerDirectory</tabstop>
+  <tabstop>selectMediaSetManagerDirectory</tabstop>
+  <tabstop>downloadBaseDirectory</tabstop>
+  <tabstop>selectDownloadBaseDirectory</tabstop>
+  <tabstop>verifyDownloadFiles</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../../qt_icon_resources/lib/qt_icon_resources/font_awesome/font_awesome.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Arinc615aDlaQt::SettingsDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>234</x>
+     <y>685</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Arinc615aDlaQt::SettingsDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>302</x>
+     <y>685</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

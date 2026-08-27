@@ -1,0 +1,23 @@
+<!DOCTYPE RCC>
+<RCC version="1.0" >
+  <qresource>
+    <file>arinc615a_icon.svg</file>
+    <file>arinc615a_settings.svg</file>
+    <file>arinc615a_find_query.svg</file>
+    <file>arinc615a_find_query_icon.svg</file>
+    <file>arinc615a_information_operation.svg</file>
+    <file>arinc615a_information_operation_icon.svg</file>
+    <file>arinc615a_download_operation.svg</file>
+    <file>arinc615a_download_operation_icon.svg</file>
+    <file>arinc615a_media_defined_download_operation.svg</file>
+    <file>arinc615a_media_defined_download_operation_icon.svg</file>
+    <file>arinc615a_operator_defined_download_operation.svg</file>
+    <file>arinc615a_operator_defined_download_operation_icon.svg</file>
+    <file>arinc615a_upload_operation.svg</file>
+    <file>arinc615a_upload_operation_icon.svg</file>
+    <file>arinc615a_target.svg</file>
+    <file>arinc615a_target_add.svg</file>
+    <file>arinc615a_target_edit.svg</file>
+    <file>arinc615a_target_remove.svg</file>
+  </qresource>
+</RCC>

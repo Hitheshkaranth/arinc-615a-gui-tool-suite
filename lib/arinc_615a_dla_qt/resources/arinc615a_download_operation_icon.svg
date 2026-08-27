@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svg4290"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="arinc615a_download_operation_icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview4292"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="11.681179"
+     inkscape:cx="23.028498"
+     inkscape:cy="22.857282"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:object-nodes="false"
+     inkscape:snap-bbox="true"
+     inkscape:lockguides="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid826"
+       empspacing="8" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4287" />
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-102.5981,-82.32667)">
+    <g
+       id="g5632"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:125%;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.986667px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(1.1397429,0,0,1.1397429,-125.60552,-604.52393)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5630"
+         d="m 208.2952,611.42215 c 0,0.19532 -0.16183,0.35715 -0.35714,0.35715 -0.19531,0 -0.35714,-0.16183 -0.35714,-0.35715 0,-0.19531 0.16183,-0.35714 0.35714,-0.35714 0.19531,0 0.35714,0.16183 0.35714,0.35714 z m 1.42857,0 c 0,0.19532 -0.16183,0.35715 -0.35714,0.35715 -0.19531,0 -0.35714,-0.16183 -0.35714,-0.35715 0,-0.19531 0.16183,-0.35714 0.35714,-0.35714 0.19531,0 0.35714,0.16183 0.35714,0.35714 z m 0.71429,-1.25 c 0,-0.29575 -0.23996,-0.53571 -0.53572,-0.53571 h -2.58928 l -0.75893,0.75893 c -0.20647,0.20089 -0.47433,0.3125 -0.75893,0.3125 -0.2846,0 -0.55245,-0.11161 -0.75893,-0.3125 l -0.75335,-0.75893 h -2.59486 c -0.29576,0 -0.53572,0.23996 -0.53572,0.53571 v 1.78572 c 0,0.29576 0.23996,0.53571 0.53572,0.53571 h 8.21428 c 0.29576,0 0.53572,-0.23995 0.53572,-0.53571 z m -1.81362,-3.17522 c -0.0558,-0.12835 -0.18415,-0.21763 -0.32924,-0.21763 h -1.42857 v -2.5 c 0,-0.19532 -0.16183,-0.35715 -0.35714,-0.35715 h -1.42857 c -0.19532,0 -0.35715,0.16183 -0.35715,0.35715 v 2.5 h -1.42857 c -0.14509,0 -0.27344,0.0893 -0.32924,0.21763 -0.0558,0.13393 -0.0279,0.29018 0.0781,0.39063 l 2.5,2.5 c 0.067,0.0725 0.16184,0.10602 0.25112,0.10602 0.0893,0 0.18415,-0.0335 0.25112,-0.10602 l 2.5,-2.5 c 0.10602,-0.10045 0.13393,-0.2567 0.0781,-0.39063 z"
+         style="stroke-width:0.986667px" />
+    </g>
+  </g>
+</svg>

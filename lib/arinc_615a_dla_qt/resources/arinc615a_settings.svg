@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svg4290"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="arinc615a_settings.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview4292"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="9.1699221"
+     inkscape:cx="38.004685"
+     inkscape:cy="23.99148"
+     inkscape:window-width="1512"
+     inkscape:window-height="847"
+     inkscape:window-x="228"
+     inkscape:window-y="68"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid13"
+       empspacing="8" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4287" />
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-102.5981,-83.173336)">
+    <text
+       xml:space="preserve"
+       style="font-size:10.5833px;line-height:1.25;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;stroke-width:0.264583"
+       x="99.952271"
+       y="91.904587"
+       id="text11273"><tspan
+         sodipodi:role="line"
+         id="tspan11271"
+         style="stroke-width:0.264583"
+         x="99.952271"
+         y="91.904587" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10.5833px;line-height:1.25;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;stroke-width:0.264583"
+       x="99.687683"
+       y="97.460838"
+       id="text15027"><tspan
+         sodipodi:role="line"
+         id="tspan15025"
+         style="stroke:#005000;stroke-width:0.264583;stroke-opacity:1"
+         x="99.687683"
+         y="97.460838" /></text>
+    <g
+       aria-label=""
+       id="text1040"
+       style="font-size:10.5833px;line-height:1.25;font-family:'LubalGraph Bd BT';-inkscape-font-specification:'LubalGraph Bd BT';letter-spacing:0px;word-spacing:0px;stroke-width:0.226783"
+       transform="matrix(1.1666806,0,0,1.1666806,-18.377424,-14.679624)">
+      <path
+         d="m 110.64672,89.315763 c 0,0.832726 -0.67917,1.511899 -1.5119,1.511899 -0.83273,0 -1.5119,-0.679173 -1.5119,-1.511899 0,-0.832727 0.67917,-1.5119 1.5119,-1.5119 0.83273,0 1.5119,0.679173 1.5119,1.5119 z m 3.0238,-0.643739 c 0,-0.1004 -0.0709,-0.194893 -0.17127,-0.212611 l -1.08077,-0.165364 c -0.0591,-0.194893 -0.14174,-0.389787 -0.24214,-0.578774 0.2008,-0.277576 0.41931,-0.537434 0.62011,-0.809103 0.0295,-0.04134 0.0473,-0.08268 0.0473,-0.135835 0,-0.04725 -0.0118,-0.09449 -0.0413,-0.129929 -0.24805,-0.348445 -0.66146,-0.714609 -0.97447,-1.003996 -0.0413,-0.03544 -0.0945,-0.05906 -0.14764,-0.05906 -0.0532,0 -0.10631,0.01772 -0.14174,0.05315 l -0.83864,0.631927 c -0.17127,-0.08859 -0.34844,-0.159458 -0.53152,-0.218516 l -0.16537,-1.086679 c -0.0118,-0.100399 -0.1063,-0.177175 -0.21261,-0.177175 h -1.3111 c -0.1063,0 -0.18899,0.07087 -0.21261,0.165364 -0.0945,0.354351 -0.12993,0.738232 -0.17127,1.09849 -0.18308,0.05906 -0.36616,0.135834 -0.53743,0.224422 l -0.81501,-0.631927 c -0.0472,-0.03544 -0.1004,-0.05906 -0.15355,-0.05906 -0.2008,0 -0.99809,0.862255 -1.13984,1.057148 -0.0295,0.04134 -0.0532,0.08268 -0.0532,0.135835 0,0.05315 0.0236,0.1004 0.0591,0.141741 0.21852,0.265763 0.43113,0.531527 0.63193,0.815008 -0.0945,0.177176 -0.17127,0.354352 -0.23033,0.543339 l -1.09849,0.165365 c -0.0886,0.01772 -0.15946,0.124023 -0.15946,0.21261 v 1.311101 c 0,0.1004 0.0709,0.194894 0.17127,0.212611 l 1.08077,0.159458 c 0.0591,0.2008 0.14174,0.395693 0.24214,0.58468 -0.2008,0.277576 -0.41931,0.537434 -0.62011,0.809103 -0.0295,0.04134 -0.0473,0.08268 -0.0473,0.135835 0,0.04725 0.0118,0.09449 0.0413,0.135835 0.24805,0.342539 0.66146,0.708703 0.97447,0.992184 0.0413,0.04134 0.0945,0.06496 0.14765,0.06496 0.0532,0 0.1063,-0.01772 0.14764,-0.05315 l 0.83273,-0.631927 c 0.17127,0.08859 0.34844,0.159458 0.53153,0.218517 l 0.16536,1.086678 c 0.0118,0.100399 0.10631,0.177175 0.21261,0.177175 h 1.3111 c 0.10631,0 0.18899,-0.07087 0.21261,-0.165364 0.0945,-0.354351 0.12993,-0.738232 0.17127,-1.098489 0.18308,-0.05906 0.36617,-0.135835 0.53744,-0.224423 l 0.815,0.637833 c 0.0472,0.02953 0.1004,0.05315 0.15356,0.05315 0.2008,0 0.99809,-0.868161 1.13983,-1.057148 0.0354,-0.04134 0.0532,-0.08268 0.0532,-0.135835 0,-0.05315 -0.0236,-0.106306 -0.0591,-0.147647 -0.21852,-0.265763 -0.43113,-0.525621 -0.63193,-0.815008 0.0945,-0.17127 0.16537,-0.348446 0.23033,-0.537433 l 1.09259,-0.165364 c 0.0945,-0.01772 0.16536,-0.124024 0.16536,-0.212611 z"
+         style="font-family:FontAwesome;-inkscape-font-specification:FontAwesome;stroke-width:0.226783"
+         id="path7928" />
+    </g>
+  </g>
+</svg>

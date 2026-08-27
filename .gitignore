@@ -1,0 +1,11 @@
+/CMakeUserPresets.json
+/cmake-build-*/
+/cmake-install-*/
+/ccache/
+/.idea/
+/.vs/
+/.tools/
+/Qt/
+user-history.db
+symbology-style.db
+compile_commands.json

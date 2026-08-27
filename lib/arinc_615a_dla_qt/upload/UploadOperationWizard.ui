@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Thomas Vogt</author>
+ <class>Arinc615aDlaQt::UploadOperationWizard</class>
+ <widget class="QWizard" name="Arinc615aDlaQt::UploadOperationWizard">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Upload Operation</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/arinc_615a_dla_qt_resources.qrc">
+    <normaloff>:/arinc615a_upload_operation_icon.svg</normaloff>:/arinc615a_upload_operation_icon.svg</iconset>
+  </property>
+  <property name="wizardStyle">
+   <enum>QWizard::ModernStyle</enum>
+  </property>
+  <property name="options">
+   <set>QWizard::NoBackButtonOnLastPage|QWizard::NoBackButtonOnStartPage</set>
+  </property>
+  <widget class="Arinc615aDlaQt::UploadOperationSettingsPage" name="settings"/>
+  <widget class="Arinc615aDlaQt::UploadOperationStatusPage" name="status"/>
+  <widget class="Arinc615aDlaQt::UploadOperationCompletedPage" name="completed"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Arinc615aDlaQt::UploadOperationStatusPage</class>
+   <extends>QWizardPage</extends>
+   <header location="global">arinc_615a_dla_qt/upload/UploadOperationStatusPage.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Arinc615aDlaQt::UploadOperationSettingsPage</class>
+   <extends>QWizardPage</extends>
+   <header location="global">arinc_615a_dla_qt/upload/UploadOperationSettingsPage.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Arinc615aDlaQt::UploadOperationCompletedPage</class>
+   <extends>QWizardPage</extends>
+   <header location="global">arinc_615a_dla_qt/upload/UploadOperationCompletedPage.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../resources/arinc_615a_dla_qt_resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

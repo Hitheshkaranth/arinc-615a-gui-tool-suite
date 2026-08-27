@@ -1,0 +1,1009 @@
+<title>ARINC 615A GUI Trace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap">
+
+<style>
+:root{
+  --ground:#F4F5F7; --surface:#FFFFFF; --surface-2:#EDEFF3;
+  --ink:#161A20; --ink-2:#39424F; --muted:#5A6472;
+  --rule:#DCE0E6; --rule-2:#C3CAD4;
+  --accent:#2F4B99; --accent-soft:#E6EAF6;
+  --teal:#0C6B69; --teal-soft:#E2F0EF;
+  --danger:#A6301F; --danger-soft:#F9E7E4;
+  --display:"IBM Plex Sans Condensed",-apple-system,"Segoe UI",sans-serif;
+  --body:"IBM Plex Serif",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1319; --surface:#161B22; --surface-2:#1D242D;
+    --ink:#E2E7ED; --ink-2:#BCC5D0; --muted:#8A94A2;
+    --rule:#242C36; --rule-2:#333D49;
+    --accent:#93AEF0; --accent-soft:#161C2E;
+    --teal:#45B3AE; --teal-soft:#122725;
+    --danger:#E0705C; --danger-soft:#2C1815;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1319; --surface:#161B22; --surface-2:#1D242D;
+  --ink:#E2E7ED; --ink-2:#BCC5D0; --muted:#8A94A2;
+  --rule:#242C36; --rule-2:#333D49;
+  --accent:#93AEF0; --accent-soft:#161C2E;
+  --teal:#45B3AE; --teal-soft:#122725;
+  --danger:#E0705C; --danger-soft:#2C1815;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--body); font-size:16px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{display:grid; grid-template-columns:236px minmax(0,1fr); gap:0; max-width:1240px; margin:0 auto}
+@media (max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}}
+
+/* ---- index rail ---- */
+.rail{
+  border-right:1px solid var(--rule); padding:34px 20px 60px 24px;
+  position:sticky; top:0; align-self:start; max-height:100vh; overflow-y:auto;
+}
+@media (max-width:900px){.rail{position:static; max-height:none; border-right:0; border-bottom:1px solid var(--rule)}}
+.rail-mark{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:4px}
+.rail-title{font-family:var(--display); font-weight:700; font-size:18px; line-height:1.2; margin:0 0 22px}
+.rail nav{display:flex; flex-direction:column; gap:1px}
+.rail a{
+  font-family:var(--display); font-weight:500; font-size:13.5px; color:var(--muted);
+  text-decoration:none; padding:4px 8px 4px 0; display:flex; gap:9px; border-radius:3px;
+}
+.rail a:hover{color:var(--ink)}
+.rail a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.rail a b{font-family:var(--mono); font-weight:500; font-size:11.5px; color:var(--rule-2); min-width:19px; font-variant-numeric:tabular-nums}
+.rail .grp{font-family:var(--mono); font-size:10px; letter-spacing:.13em; text-transform:uppercase; color:var(--rule-2); margin:18px 0 5px}
+
+/* ---- main ---- */
+main{padding:34px 44px 120px; min-width:0}
+@media (max-width:900px){main{padding:28px 20px 80px}}
+.prose{max-width:70ch}
+
+h2{
+  font-family:var(--display); font-weight:700; font-size:27px; line-height:1.18;
+  margin:0 0 6px; text-wrap:balance; letter-spacing:-.008em;
+}
+h3{font-family:var(--display); font-weight:600; font-size:19px; margin:34px 0 8px; text-wrap:balance}
+h4{font-family:var(--display); font-weight:600; font-size:15px; margin:24px 0 6px; color:var(--ink-2)}
+p{margin:0 0 14px}
+.lede{font-size:17.5px; color:var(--ink-2); max-width:66ch}
+a{color:var(--accent)}
+
+section{
+  border-top:1px solid var(--rule); padding:46px 0 8px; scroll-margin-top:16px;
+}
+section:first-of-type{border-top:0; padding-top:8px}
+.sec-no{
+  font-family:var(--mono); font-size:11px; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--accent); margin:0 0 10px; display:block;
+}
+
+code{font-family:var(--mono); font-size:.875em; background:var(--surface-2); padding:1px 4px; border-radius:3px; word-break:break-word}
+pre{
+  font-family:var(--mono); font-size:12.5px; line-height:1.62; background:var(--surface);
+  border:1px solid var(--rule); border-left:2px solid var(--rule-2); border-radius:4px;
+  padding:13px 15px; overflow-x:auto; margin:0 0 16px;
+}
+pre code{background:none; padding:0; font-size:inherit}
+
+/* ---- function entry ---- */
+.fn{
+  background:var(--surface); border:1px solid var(--rule); border-radius:5px;
+  margin:0 0 12px; overflow:hidden;
+}
+.fn > summary{
+  list-style:none; cursor:pointer; padding:11px 14px; display:flex; gap:10px;
+  align-items:baseline; flex-wrap:wrap; border-left:2px solid var(--accent);
+}
+.fn > summary::-webkit-details-marker{display:none}
+.fn > summary:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+.fn[open] > summary{border-bottom:1px solid var(--rule)}
+.fn-sig{font-family:var(--mono); font-size:12.5px; font-weight:500; color:var(--ink); flex:1 1 auto; min-width:0}
+.fn-sig .rt{color:var(--muted)}
+.src{
+  font-family:var(--mono); font-size:10.5px; color:var(--muted); white-space:nowrap;
+  background:var(--surface-2); border-radius:3px; padding:2px 6px;
+}
+.fn-body{padding:13px 15px 4px}
+.fn-body p{margin:0 0 11px; font-size:15px}
+.fn-body > :last-child{margin-bottom:11px}
+
+/* ---- step list ---- */
+ol.steps{margin:0 0 14px; padding:0 0 0 0; list-style:none; counter-reset:s}
+ol.steps li{
+  counter-increment:s; position:relative; padding:0 0 9px 34px; font-size:15px;
+}
+ol.steps li::before{
+  content:counter(s,decimal-leading-zero); position:absolute; left:0; top:1px;
+  font-family:var(--mono); font-size:10.5px; color:var(--accent);
+  background:var(--accent-soft); border-radius:3px; padding:2px 5px; font-variant-numeric:tabular-nums;
+}
+ul.tight{margin:0 0 14px; padding-left:19px} ul.tight li{margin-bottom:5px; font-size:15px}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto; margin:0 0 18px; border:1px solid var(--rule); border-radius:5px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:13.5px}
+th{
+  font-family:var(--display); font-weight:600; text-align:left; font-size:12px;
+  letter-spacing:.05em; text-transform:uppercase; color:var(--muted);
+  padding:9px 13px; border-bottom:1px solid var(--rule); white-space:nowrap;
+}
+td{padding:8px 13px; border-bottom:1px solid var(--rule); vertical-align:top; font-family:var(--body)}
+tr:last-child td{border-bottom:0}
+td.m,th.m{font-family:var(--mono); font-size:12px; font-variant-numeric:tabular-nums; white-space:nowrap}
+
+/* ---- callouts ---- */
+.note{
+  border:1px solid var(--rule); border-left:2px solid var(--teal); background:var(--surface);
+  border-radius:4px; padding:12px 15px; margin:0 0 16px; font-size:14.5px;
+}
+.note.warn{border-left-color:var(--danger)}
+.note .lbl{
+  font-family:var(--mono); font-size:10px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--teal); display:block; margin-bottom:4px;
+}
+.note.warn .lbl{color:var(--danger)}
+.note p:last-child{margin-bottom:0}
+
+/* ---- figures ---- */
+figure{margin:0 0 22px}
+.fw{overflow-x:auto; background:var(--surface); border:1px solid var(--rule); border-radius:5px; padding:16px}
+figure svg{display:block; max-width:100%; height:auto; color:var(--ink)}
+figcaption{font-size:13px; color:var(--muted); margin-top:9px; max-width:64ch; font-style:italic}
+.sv-l{font-family:"IBM Plex Sans Condensed",sans-serif; font-size:12px; font-weight:600}
+.sv-s{font-family:"IBM Plex Mono",monospace; font-size:10.5px}
+.sv-m{font-family:"IBM Plex Mono",monospace; font-size:11px}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<div class="shell">
+<aside class="rail">
+  <div class="rail-mark">ARINC 615A-4</div>
+  <p class="rail-title">GUI Data Loader<br>Engineering Trace</p>
+  <nav>
+    <div class="grp">Orientation</div>
+    <a href="#s1"><b>01</b>Scope</a>
+    <a href="#s2"><b>02</b>Section split</a>
+    <a href="#s3"><b>03</b>Architecture</a>
+    <a href="#s4"><b>04</b>Concurrency</a>
+    <div class="grp">Entry &amp; shell</div>
+    <a href="#s5"><b>05</b>main()</a>
+    <a href="#s6"><b>06</b>Main window</a>
+    <a href="#s7"><b>07</b>Adapter pattern</a>
+    <a href="#s8"><b>08</b>Wizard skeleton</a>
+    <div class="grp">Operations</div>
+    <a href="#s9"><b>09</b>FIND query</a>
+    <a href="#s10"><b>10</b>Information</a>
+    <a href="#s11"><b>11</b>Upload</a>
+    <a href="#s12"><b>12</b>Media download</a>
+    <a href="#s13"><b>13</b>Operator download</a>
+    <div class="grp">Presentation</div>
+    <a href="#s14"><b>14</b>Model layer</a>
+    <a href="#s15"><b>15</b>Targets &amp; settings</a>
+    <a href="#s16"><b>16</b>Resources</a>
+    <div class="grp">Practice</div>
+    <a href="#s17"><b>17</b>Isolating the CLI</a>
+    <a href="#s18"><b>18</b>Building</a>
+    <a href="#s19"><b>19</b>Running</a>
+    <a href="#s20"><b>20</b>GUI vs CLI</a>
+    <div class="grp">Closing</div>
+    <a href="#s21"><b>21</b>Findings</a>
+    <a href="#s22"><b>22</b>References</a>
+  </nav>
+</aside>
+
+<main>
+
+<section id="s1">
+  <span class="sec-no">01 — Scope</span>
+  <h2>What this document covers</h2>
+  <div class="prose">
+    <p class="lede">A trace of the graphical data loader in this repository: how a menu action becomes a UDP datagram, and how a protocol callback arriving on a worker thread becomes a row in a table widget.</p>
+
+    <p>This is the companion to the CLI engineering trace. Both applications drive the <em>same</em> host protocol core — <code>lib/arinc_615a</code> — and nothing below re-describes that core. Where the wire protocol matters, this document points at the CLI trace rather than repeating it. What is new here is everything between the operator and that core: the wizard shell, the handler-to-signal adapters, the Qt model layer, and the thread boundary that separates them.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Target</th><th>Role</th><th>Covered</th></tr></thead>
+      <tbody>
+        <tr><td class="m">arinc_615a_data_loader_gui</td><td><strong>Built.</strong> Qt application shell — 90 lines, no protocol logic of its own</td><td>§5</td></tr>
+        <tr><td class="m">arinc_615a_dla_qt</td><td><strong>Built.</strong> Data loader application library — main window, five operation adapters, four wizards</td><td>§6–§16</td></tr>
+        <tr><td class="m">arinc_615a_qt</td><td><strong>Built.</strong> Reusable Qt models and dialogues over ARINC 615A types</td><td>§14–§15</td></tr>
+        <tr><td class="m">arinc_615a</td><td><strong>Built.</strong> Protocol core, shared with the CLI section</td><td>CLI trace §9–§17</td></tr>
+        <tr><td class="m">arinc_615a_commands</td><td>Command-line section — <em>excluded</em> from this build</td><td>§17</td></tr>
+        <tr><td class="m">arinc_615a_operation</td><td>Command-line section — <em>excluded</em> from this build</td><td>§17, §20</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <h3>How to read it</h3>
+    <p>Sections 2 through 8 are the spine — read them in order. Sections 9 through 13 are one per protocol operation and are mutually independent, but all four wizards share the shape described in §8, so read §8 first. Sections 14 through 16 are presentation-layer reference. Sections 17 through 19 are the build and run procedure; §20 is a side-by-side comparison for anyone who knows the CLI already.</p>
+    <p>Function blocks carry their source location as <code>file:line</code>, against the tree as it stands after the GUI section was restored.</p>
+    <div class="note">
+      <span class="lbl">Provenance</span>
+      <p>The GUI section was present in the upstream distribution but had been stripped from this working copy when the tree was reduced to a CLI-only variant. It was restored from the original archive unmodified; the only code written for this exercise is the CMake section switching described in §17.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s2">
+  <span class="sec-no">02 — Section split</span>
+  <h2>One core, two front ends</h2>
+  <div class="prose">
+    <p>The tree contains two application sections that never reference each other. They meet only at <code>lib/arinc_615a</code>.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Concern</th><th>Command-line section</th><th>Graphical section</th></tr></thead>
+      <tbody>
+        <tr><td>Parameter capture</td><td class="m">boost::program_options</td><td class="m">QWizardPage::isComplete()</td></tr>
+        <tr><td>Dispatch</td><td class="m">Commands::CommandRegistry</td><td class="m">QAction → slot</td></tr>
+        <tr><td>Progress reporting</td><td class="m">std::cout</td><td>Qt signals into table models</td></tr>
+        <tr><td>Completion rendezvous</td><td class="m">std::latch</td><td>queued signal, no blocking</td></tr>
+        <tr><td>I/O thread</td><td class="m">std::jthread</td><td class="m">std::jthread</td></tr>
+        <tr><td>Abort path</td><td class="m">SIGINT → boost::signals2</td><td>toolbar button → direct slot</td></tr>
+        <tr><td>Extra dependencies</td><td class="m">commands</td><td class="m">Qt 6, qt_icon_resources</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p>The interesting column is the fourth. The CLI blocks its command thread on <code>done.wait()</code> until the protocol callback counts the latch down; the process exists to run exactly one operation, so blocking is free. The GUI cannot block — its thread is the event loop — so every completion path is a queued signal and the wizard's <em>Finish</em> button is what "waiting" looks like to the operator.</p>
+    <p>That difference, and the fact that Qt widgets have thread affinity, is the whole substance of the adapter layer in §7.</p>
+  </div>
+</section>
+
+<section id="s3">
+  <span class="sec-no">03 — Architecture</span>
+  <h2>Five layers on the GUI side</h2>
+  <div class="prose">
+    <p>Reading downward, each layer knows only the one below it. The upward path is always a Qt signal or an abstract handler interface bound at construction.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Layer</th><th>Where</th><th>Responsibility</th></tr></thead>
+      <tbody>
+        <tr><td class="m">Application</td><td class="m">app/arinc_615a_data_loader_gui</td><td>Register resources, construct <code>QApplication</code>, show the main window</td></tr>
+        <tr><td class="m">Shell</td><td class="m">arinc_615a_dla_qt/DataLoaderMainWindow</td><td>Owns the <code>io_context</code>, the FIND client, the host protocol, configuration, the target list and the media set manager</td></tr>
+        <tr><td class="m">Wizards</td><td class="m">arinc_615a_dla_qt/{find,information,upload,download}</td><td>Collect parameters, show live status, present the result</td></tr>
+        <tr><td class="m">Adapters</td><td class="m">arinc_615a_dla_qt/operations</td><td>Implement the core's handler interfaces; convert every callback into a Qt signal</td></tr>
+        <tr><td class="m">Models</td><td class="m">arinc_615a_qt</td><td><code>QAbstractTableModel</code> subclasses over ARINC 615A value types</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p>Below the shell sits the protocol core, unchanged and unaware that a GUI exists. <code>Arinc615a::Host::Protocol::instance( ioContext )</code> is the same call the CLI makes; <code>Arinc615a::Find::Clients::Client::instance( ioContext )</code> likewise.</p>
+
+    <h3>Library dependencies</h3>
+    <p><code>arinc_615a_dla_qt</code> links publicly against <code>arinc_615a</code>, <code>arinc_665_qt</code>, <code>Qt::Widgets</code> and <code>Qt::Network</code>, and privately against <code>arinc_615a_qt</code>, <code>helper_qt</code>, <code>tftp_qt</code>, <code>qt_icon_resources</code> and spdlog. The four <code>*_qt</code> siblings come from the fetched dependencies and only exist when Qt is found — each of their <code>CMakeLists.txt</code> opens with a <code>find_package( Qt6 ... QUIET )</code> and returns early if the target is absent.</p>
+    <p>That early-return idiom is why the upstream tree can be built with or without Qt without any option at all. The section switch added in §17 is a stronger statement: it keeps the Qt subdirectories out of the configure entirely, so a CLI build does not even fetch <code>qt_icon_resources</code>.</p>
+  </div>
+</section>
+
+<section id="s4">
+  <span class="sec-no">04 — Concurrency</span>
+  <h2>Two threads and a queued connection</h2>
+  <div class="prose">
+    <p>The process runs two threads for the whole of its life.</p>
+  </div>
+
+  <ol class="steps">
+    <li><strong>The Qt GUI thread</strong> — the main thread. Runs <code>QApplication::exec()</code>. Owns every widget, every model, and every wizard.</li>
+    <li><strong>The ASIO I/O thread</strong> — a <code>std::jthread</code> started at the end of the <code>DataLoaderMainWindow</code> constructor, running <code>ioContext.run()</code>. Owns every socket. All protocol handler callbacks arrive here.</li>
+  </ol>
+
+  <div class="prose">
+    <p>A <code>boost::asio::executor_work_guard</code> is constructed before the thread starts, so <code>run()</code> does not return when the queue drains between operations. The destructor sequence is <code>workGuard.reset()</code> then <code>ioThread.join()</code>, then configuration is saved.</p>
+
+    <p>Everything crossing from the I/O thread to the GUI thread crosses as a <code>Qt::QueuedConnection</code>. The connections are written explicitly rather than left to <code>Qt::AutoConnection</code> — for example in <code>InformationOperationWizard</code>, every one of the six <code>connect()</code> calls that binds an adapter signal names <code>Qt::QueuedConnection</code> at the call site.</p>
+
+    <div class="note">
+      <span class="lbl">Why explicit</span>
+      <p><code>Qt::AutoConnection</code> decides direct-versus-queued by comparing the <em>emitting</em> thread against the receiver's thread affinity at emit time, which would give the right answer here anyway. Naming the type explicitly documents the boundary and stops a later refactor from silently turning a cross-thread call into a direct one.</p>
+    </div>
+
+    <p>Queued delivery copies the arguments, so every payload type must be registered with the meta-object system. Each adapter's constructor does this up front:</p>
+
+    <pre><code>qRegisterMetaType&lt; std::chrono::seconds &gt;( "std::chrono::seconds" );
+qRegisterMetaType&lt; std::string &gt;( "std::string" );
+qRegisterMetaType&lt; Arinc615a::StatusCode &gt;( "Arinc615a::StatusCode" );
+qRegisterMetaType&lt; Arinc615a::Information::InitializationResponse &gt;(
+  "Arinc615a::Information::InitializationResponse" );
+qRegisterMetaType&lt; Arinc615a::Information::InformationStatus &gt;( "Arinc615a::Information::InformationStatus" );
+qRegisterMetaType&lt; Arinc615a::Information::TargetsHardware &gt;( "Arinc615a::Information::TargetsHardware" );</code></pre>
+
+    <p>Note the signal signatures that follow from this. The handler interface hands <code>finished()</code> a <code>std::string_view</code>; the signal takes <code>const std::string &amp;</code>. It has to — a view into a buffer owned by the I/O thread would dangle by the time the GUI thread dequeues the event. The adapter's one-line body <code>emit operationFinished( code, std::string{ description } )</code> is where that copy happens.</p>
+  </div>
+</section>
+
+<section id="s5">
+  <span class="sec-no">05 — Entry point</span>
+  <h2>main(), line by line</h2>
+  <div class="prose">
+    <p>The application target is 90 lines and contains no protocol logic. <code>app/arinc_615a_data_loader_gui/arinc_615a_data_loader_gui.cpp:42</code>.</p>
+  </div>
+
+  <ol class="steps">
+    <li>Append a <code>basic_file_sink_mt</code> to the default spdlog logger, pointed at <code>std::filesystem::temp_directory_path() / "arinc_615a_data_loader_gui.log"</code>, and set the level to <code>info</code>. A windowed application has nowhere to write to a console, so the file sink is the only diagnostic channel.</li>
+    <li>Initialise three Qt resource archives: <code>QtIconResources::initialise()</code>, <code>Arinc665Qt::Resources::initialise()</code>, <code>Arinc615aDlaQt::Resources::initialise()</code>. These must run before <code>QApplication</code> so the window icon is resolvable.</li>
+    <li>Construct <code>QApplication</code>, then set display name, organisation name and domain — the last two are what <code>QSettings</code> and the configuration location key off.</li>
+    <li>Set the window icon from <code>:/arinc615a_icon.svg</code>.</li>
+    <li>Construct <code>DataLoaderMainWindow</code> on the stack, <code>show()</code> it, and return <code>QApplication::exec()</code>.</li>
+  </ol>
+
+  <div class="prose">
+    <p>The whole body sits inside a nested try/catch: <code>boost::exception</code>, <code>std::exception</code> and <code>...</code> each raise a <code>QMessageBox::critical</code> and return <code>EXIT_FAILURE</code>, wrapped in an outer <code>catch(...)</code> that falls back to <code>std::cerr</code>. The outer handler covers the case where the failure happened before <code>QApplication</code> existed and a message box is not yet possible.</p>
+
+    <p>The executable is linked <code>WIN32</code> — <code>add_executable( arinc_615a_data_loader_gui WIN32 )</code> — so on Windows it has no attached console and the outer <code>std::cerr</code> path is effectively silent. The log file is the real diagnostic.</p>
+  </div>
+</section>
+
+<section id="s6">
+  <span class="sec-no">06 — Shell</span>
+  <h2>DataLoaderMainWindow: what it owns</h2>
+  <div class="prose">
+    <p><code>lib/arinc_615a_dla_qt/DataLoaderMainWindow.cpp:60</code>. The constructor is 130 lines and does six things in order.</p>
+  </div>
+
+  <ol class="steps">
+    <li><strong>Member init list</strong> constructs the four owned dialogues, six statistic models, the <code>executor_work_guard</code> over <code>ioContext</code>, and — critically — <code>findClient</code> and <code>protocol</code> from that same <code>ioContext</code>. Both core instances exist for the lifetime of the window, not per operation.</li>
+    <li><strong><code>ui-&gt;setupUi( this )</code></strong> then binds each of the six statistic models to its table view and sets every horizontal header to <code>ResizeMode::Stretch</code>.</li>
+    <li><strong>About dialogue</strong> is populated with the product logo, name, version, licence and URL from <code>Arinc615a::Version</code>, plus a version list covering ARINC 615A, TFTP, ARINC 665, ARINC 649, qt_icon_resources, helper, Boost and Qt.</li>
+    <li><strong><code>loadConfiguration()</code></strong> reads <code>DataLoader.json</code> and <code>Targets.json</code> from the Qt application configuration location.</li>
+    <li><strong><code>loadMediaSetManager()</code></strong> starts the ARINC 665 media set scan asynchronously — see below.</li>
+    <li><strong>Action wiring</strong>, then the I/O thread is started last.</li>
+  </ol>
+
+  <h3>The six statistic models</h3>
+  <div class="prose">
+    <p>The central widget is nothing but three group boxes, each holding an RX and a TX table: TFTP packets, ARINC 615A FIND packets, ARINC 615A protocol files. They are fed by <code>updatePacketStatistic()</code> at <code>DataLoaderMainWindow.cpp:477</code>, which pulls six process-global counters:</p>
+
+    <pre><code>rxTftpPacketStatisticModelV-&gt;statistic( Tftp::Packets::PacketStatistic::globalReceive().statistic() );
+txTftpPacketStatisticModelV-&gt;statistic( Tftp::Packets::PacketStatistic::globalTransmit().statistic() );
+rxFindPacketStatisticModelV-&gt;statistic( Arinc615a::Find::Packets::PacketStatistic::globalReceive().statistic() );
+txFindPacketStatisticModelV-&gt;statistic( Arinc615a::Find::Packets::PacketStatistic::globalTransmit().statistic() );
+rxProtocolFileStatisticModelV-&gt;statistic( Arinc615a::Files::ProtocolFileStatistic::globalReceive().statistic() );
+txProtocolFileStatisticModelV-&gt;statistic( Arinc615a::Files::ProtocolFileStatistic::globalTransmit().statistic() );</code></pre>
+
+    <p>These are the same globals the CLI prints after each operation. The refresh is <strong>not</strong> on a timer: it is connected to each wizard's <code>finished</code> signal, so the tables update when a wizard closes and at no other time. That is a deliberate choice — polling process-global counters from a timer would read them concurrently with the I/O thread writing them.</p>
+  </div>
+
+  <h3>Asynchronous media set loading</h3>
+  <div class="prose">
+    <p><code>loadMediaSetManager()</code> at line 396 is the one place the shell does real work at startup. It disables <em>Upload Operation</em> and <em>Manage Media Sets</em>, constructs an <code>Arinc665Qt::Actions::LoadMediaSetManagerAction</code> and a <code>QProgressDialog</code>, wires three signals — progress, loaded, failed — and then kicks the action off with:</p>
+
+    <pre><code>QMetaObject::invokeMethod(
+  mediaSetManagerLoader,
+  &amp;Arinc665Qt::Actions::LoadMediaSetManagerAction::start,
+  Qt::ConnectionType::QueuedConnection );</code></pre>
+
+    <p>A queued invocation onto the object's own thread, which defers <code>start()</code> until control returns to the event loop — after the constructor has finished and the window is shown. Both success and failure lambdas call <code>deleteLater()</code> on the action and the dialogue; the failure lambda additionally shows the media set directory in the error text and then calls <code>close()</code> on the window.</p>
+
+    <p>Upload is the only operation that needs the media set manager, which is why it is the only action gated on the scan completing.</p>
+  </div>
+</section>
+
+<section id="s7">
+  <span class="sec-no">07 — Adapters</span>
+  <h2>How a callback becomes a signal</h2>
+  <div class="prose">
+    <p><code>lib/arinc_615a_dla_qt/operations/</code> holds five classes — <code>FindQuery</code>, <code>InformationOperation</code>, <code>UploadOperation</code>, <code>MediaDefinedDownloadOperation</code>, <code>OperatorDefinedDownloadOperation</code>. Each has the same shape:</p>
+
+    <pre><code>class InformationOperation final :
+  public QObject,
+  private Arinc615a::Host::InformationOperationHandler
+{
+    Q_OBJECT
+  ...
+};</code></pre>
+
+    <p>Public <code>QObject</code>, <strong>private</strong> handler interface. The private inheritance is the point: the handler methods are an implementation detail that only the protocol core is allowed to call, and it gets that right through <code>.handler = *this</code> in the operation configuration. Nothing in the GUI can invoke them.</p>
+
+    <p>The class exposes two slots — <code>startOperation()</code>, <code>abortOperation()</code> — plus operation-specific ones such as <code>transmitLoads()</code> or <code>transmitFiles()</code>, and a set of signals mirroring the handler methods one-for-one.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Handler method (I/O thread)</th><th>Signal (queued to GUI thread)</th></tr></thead>
+      <tbody>
+        <tr><td class="m">initialisationDeferred( seconds )</td><td class="m">operationDeferred( seconds )</td></tr>
+        <tr><td class="m">initialisationResponse( response )</td><td class="m">operationInitialised( response )</td></tr>
+        <tr><td class="m">finished( code, string_view )</td><td class="m">operationFinished( code, std::string )</td></tr>
+        <tr><td class="m">status( status )</td><td class="m">receivedStatus( status )</td></tr>
+        <tr><td class="m">targetInformation( hw, integrity )</td><td class="m">receivedInformation( hw, integrity )</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p>Most of the bodies are exactly one line. <code>InformationOperation::status()</code> is <code>emit receivedStatus( status );</code> and nothing else. That is the design working: the adapter has no state machine of its own, it is a thread-boundary marshaller.</p>
+
+    <h3>Where a slot does more than emit</h3>
+    <p><code>startOperation()</code> is the exception. Taking <code>InformationOperation::startOperation()</code> at <code>operations/InformationOperation.cpp:49</code>:</p>
+
+    <pre><code>operationV = protocolV-&gt;informationOperation(
+  Arinc615a::Host::InformationOperationConfiguration{
+    .dataLoaderConfiguration = configurationV.dataLoaderConfiguration,
+    .handler = *this,
+    .targetAddress = targetAddress,
+    .targetId = targetId,
+    .dlpTimeout = configurationV.dlpTimeout,
+    .portOption = configurationV.portOption } );
+operationV-&gt;start();</code></pre>
+
+    <p>Compare the CLI's <code>InformationOperationCommand::execute()</code>, which builds the identical designated initialiser from <code>boost::program_options</code> values and then blocks on <code>done.wait()</code>. Same struct, same core call; the GUI simply returns to the event loop instead of waiting.</p>
+
+    <p>The catch block on each of these slots raises a <code>QMessageBox::critical</code> and then emits <code>operationFinished( StatusCode::OperationAbortedByDlp, "Error During Operation" )</code>, so a construction failure still moves the wizard to its completed page rather than leaving it stuck on a status page with no way forward.</p>
+
+    <h3>Abort</h3>
+    <p><code>abortOperation()</code> null-checks <code>operationV</code> and calls <code>abort( AbortReason::Operator )</code>. Per the core's contract this only sets a flag; the request goes out with the next status file the target asks for. The CLI reaches the same call through a <code>boost::signals2</code> connection driven by <code>SIGINT</code>; the GUI reaches it from a button, with no signal machinery in between.</p>
+  </div>
+</section>
+
+<section id="s8">
+  <span class="sec-no">08 — Wizard skeleton</span>
+  <h2>The shape every wizard shares</h2>
+  <div class="prose">
+    <p>All four operation wizards are <code>QWizard</code> subclasses laid out in Qt Designer, with the pages declared as promoted widgets in the <code>.ui</code> file. Each constructor follows the same seven steps.</p>
+  </div>
+
+  <ol class="steps">
+    <li>Construct the adapter as a child <code>QObject</code>, so it dies with the wizard.</li>
+    <li><code>ui-&gt;setupUi( this )</code>.</li>
+    <li>Push context onto the settings page — the target list always, plus media sets for upload or a download base directory for the download wizards.</li>
+    <li><code>setButtonText( CustomButton1, tr( "Abort Operation" ) )</code>.</li>
+    <li>Load the operation's SVG from the resource archive and set it as <code>LogoPixmap</code> at 64&nbsp;px on <em>every</em> page, by iterating <code>pageIds()</code>.</li>
+    <li>Connect settings-page selection signals up to the wizard, and the status page's start/abort signals down to the adapter.</li>
+    <li>Connect each adapter signal to the pages that render it, always with <code>Qt::QueuedConnection</code>.</li>
+  </ol>
+
+  <div class="prose">
+    <p>Step 7 routinely fans one signal out to several receivers. In <code>InformationOperationWizard</code>, <code>operationFinished</code> goes to three places at once — the wizard itself (to swap the button set), the status page (to stop the spinner) and the completed page (to render the final status code). No receiver knows about the others.</p>
+
+    <p>Wizards are heap-allocated and self-disposing. The shell's <code>findQuery()</code> slot is the template:</p>
+
+    <pre><code>auto * const wizard{ new FindQueryWizard{ findClient, configuration, targetsV, this } };
+
+connect( wizard, &amp;FindQueryWizard::finished, wizard, &amp;FindQueryWizard::deleteLater );
+connect( wizard, &amp;FindQueryWizard::finished, this, &amp;DataLoaderMainWindow::updatePacketStatistic );
+
+wizard-&gt;show();</code></pre>
+
+    <p><code>show()</code>, not <code>exec()</code> — the wizards are modeless, so several operations can be open at once and the main window stays live behind them.</p>
+
+    <h3>Page roles</h3>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Page</th><th>Role</th><th>Commit page?</th></tr></thead>
+      <tbody>
+        <tr><td>Settings / Select address</td><td>Target selection and operation parameters; gates <em>Next</em> through <code>isComplete()</code></td><td>Yes</td></tr>
+        <tr><td>Select files</td><td>Operator-defined download only — names the files to request</td><td>Yes</td></tr>
+        <tr><td>Status</td><td>Live status log, ratio, exception timer, per-file or per-load table</td><td>—</td></tr>
+        <tr><td>Completed</td><td>Final status code and description, part numbers or file list</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p>Marking the settings page a commit page is what makes the operation irreversible at the right moment: once <em>Commit</em> is pressed the wizard cannot go back, which matches a protocol operation that has already put a packet on the wire.</p>
+  </div>
+</section>
+
+<section id="s9">
+  <span class="sec-no">09 — FIND query</span>
+  <h2>Discovery: one broadcast, N answers</h2>
+  <div class="prose">
+    <p>The simplest of the five, and the only one that does not go through <code>Host::Protocol</code>. Two pages: <em>Select Address</em> and <em>Results</em>.</p>
+
+    <h3>Page 1 — Select Address</h3>
+    <p><code>find/FindQuerySelectAddressPage.cpp</code>. The constructor populates an editable combo box with the global IPv4 broadcast address, then every interface broadcast address Qt can see:</p>
+
+    <pre><code>ui-&gt;targetAddress-&gt;addItem( QHostAddress{ QHostAddress::SpecialAddress::Broadcast }.toString() );
+for ( const auto &amp;networkInterface : QNetworkInterface::allInterfaces() )
+{
+  for ( const auto &amp;addressEntries : networkInterface.addressEntries() )
+  {
+    if ( addressEntries.broadcast().protocol() == QAbstractSocket::IPv4Protocol )
+    {
+      ui-&gt;targetAddress-&gt;addItem( addressEntries.broadcast().toString() );
+    }
+  }
+}</code></pre>
+
+    <p>This is the one place the GUI genuinely beats the CLI on ergonomics. The CLI's equivalent is <code>targetAddress( &amp;targetAddressV, true )</code>, which defaults to the global broadcast and leaves the operator to work out the right per-interface broadcast address by hand on a multi-homed host.</p>
+
+    <p>Validation lives in <code>isComplete()</code> at line 53, which runs <code>boost::asio::ip::make_address_v4</code> on the current text and returns <code>false</code> on error — so <em>Commit</em> stays greyed until the text parses as IPv4. IPv6 is rejected by construction, which is correct: ARINC 615A FIND is a broadcast protocol and has no IPv6 form.</p>
+
+    <h3>Page 2 — Results</h3>
+    <p>The page starts the query on entry and renders responses into a <code>TargetsInformationModel</code>. The adapter, <code>operations/FindQuery.cpp:37</code>, configures the core query with the fluent setter chain and starts it:</p>
+
+    <pre><code>queryV = findClientV-&gt;query();
+queryV
+  -&gt;responseHandler( std::bind_front( &amp;FindQuery::findResponse, this ) )
+  .completionHandler( std::bind_front( &amp;FindQuery::finished, this ) )
+  .localAddress( configurationV.findConfiguration.localInterfaceAddress )
+  .remoteAddress( targetAddress )
+  .port( configurationV.findConfiguration.findPort )
+  .dynamicLocalPort( configurationV.dynamicFindPort )
+  .timeout( configurationV.findTimeout );
+queryV-&gt;start();</code></pre>
+
+    <p>Line for line the same chain as <code>FindQueryCommand::execute()</code> in the CLI, with configuration fields substituted for parsed options. <code>findResponse</code> and <code>finished</code> each emit and do nothing else; the wizard's queued slots do the rest.</p>
+
+    <p>On accept, <code>saveResult()</code> checks the <code>AddToTargetList</code> wizard field and, if set, appends the model's contents to the shell's target list — which is then written to <code>Targets.json</code> when the window closes. That is the GUI's substitute for the CLI's <code>--targets-list</code> JSON file, and the two use the same on-disk representation, so a list built in one is readable by the other.</p>
+
+    <div class="note">
+      <span class="lbl">Observed</span>
+      <p>A query against <code>255.255.255.255</code> on a network with no ARINC 615A target hardware completes after the 3&nbsp;s default receive timeout with an empty results table and <em>Finish</em> enabled. Closing the wizard leaves one row in the FIND TX statistic: <code>Information Request / 1 / 4</code>. That is the full round trip — wizard, adapter, core, socket, timer, completion handler, queued signal — with the only missing element being a target that answers.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s10">
+  <span class="sec-no">10 — Information</span>
+  <h2>Information: the reference operation</h2>
+  <div class="prose">
+    <p>Three pages — settings, status, completed — and the shortest adapter of the four that use <code>Host::Protocol</code>. If you read one operation to understand the pattern, read this one.</p>
+
+    <p>The settings page takes the target list and lets the operator pick a target; selection emits <code>targetSelected( address, targetId )</code>, which the wizard caches in two members. Entering the status page calls <code>startOperation()</code>, which forwards those two members to the adapter slot shown in §7.</p>
+
+    <p>From there the wizard is entirely reactive. Four adapter signals drive it:</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Signal</th><th>Rendered by</th><th>As</th></tr></thead>
+      <tbody>
+        <tr><td class="m">operationDeferred</td><td>status page</td><td>A synthetic <code>OperationDeferred</code> initialisation response, so a WAIT looks like any other status</td></tr>
+        <tr><td class="m">operationInitialised</td><td>status page</td><td>Initialisation code and description</td></tr>
+        <tr><td class="m">receivedStatus</td><td>status + completed</td><td>Appended to an <code>InformationStatusLogModel</code>; counter, code, description, exception timer, estimated time</td></tr>
+        <tr><td class="m">receivedInformation</td><td>completed</td><td><code>TargetsHardwareModel</code> and <code>PartNumbersModel</code>, plus an integrity indicator</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p>Note that both the status page and the completed page subscribe to <code>receivedStatus</code>. The status page shows the live tail; the completed page accumulates the whole log so the operator can scroll back after the operation ends. Neither knows the other exists.</p>
+
+    <p>The CLI's equivalent output is six <code>std::cout</code> blocks in <code>InformationOperationCommand</code> — the same fields, printed as they arrive and gone when the terminal scrolls. The information content is identical; only the retention differs.</p>
+  </div>
+</section>
+
+<section id="s11">
+  <span class="sec-no">11 — Upload</span>
+  <h2>Upload: host as file server</h2>
+  <div class="prose">
+    <p>The only operation gated on the ARINC 665 media set manager, and the only one where the host serves files rather than requesting them.</p>
+
+    <p>The settings page takes both the target list and the loaded media sets. The wizard flattens the manager's map into a list before handing it over:</p>
+
+    <pre><code>Arinc665::Media::ConstMediaSets mediaSets{};
+for ( auto [ mediaSet, checkValues ] : mediaSetManager-&gt;mediaSets() | std::views::values )
+{
+  mediaSets.emplace_back( std::move( mediaSet ) );
+}
+ui-&gt;settings-&gt;mediaSets( std::move( mediaSets ) );</code></pre>
+
+    <p>Selecting a media set narrows the load list; selecting loads emits <code>loadsSelected</code>. Three cached members — target, media set, loads — feed <code>startOperation()</code>.</p>
+
+    <h3>The load list handshake</h3>
+    <p>Upload has a step the other operations do not. After the target accepts the operation, the host must send the list of loads it intends to transfer. In the CLI this is done inside the <code>status()</code> callback, guarded by a <code>loadListTransmittedV</code> flag so it fires exactly once:</p>
+
+    <pre><code>if ( ( status.code() == Arinc615a::StatusCode::OperationAccepted ) &amp;&amp; ( !loadListTransmittedV ) )
+{ ... operationV-&gt;loadList( std::move( loadsList ) ); loadListTransmittedV = true; }</code></pre>
+
+    <p>The GUI splits the same decision across the thread boundary. The adapter's <code>status()</code> only emits; the wizard's queued slot decides whether to respond, and calls back down through <code>transmitLoads()</code> — a slot, therefore executing on the GUI thread, which then calls the core from there. The single-shot guard moves from the callback into the wizard's state.</p>
+
+    <h3>Serving the files</h3>
+    <p><code>UploadOperation::fileRequest()</code> at <code>operations/UploadOperation.cpp:174</code> runs on the I/O thread and — correctly — touches no Qt widgets at all. It resolves the requested filename through <code>Arinc665::Media::Loads_file()</code>, maps it to a real path via <code>mediaSetManagerV-&gt;filePath( file )</code>, and on either failure answers the target with a TFTP error:</p>
+
+    <pre><code>operationV-&gt;errorOperation( remote, Tftp::Packets::ErrorCode::FileNotFound,
+                            std::format( "File '{}' was not found.", filename ) );</code></pre>
+
+    <p>On success it wraps the path in a <code>Tftp::Files::StreamFile</code> in <code>Transmit</code> mode, creates the transfer, binds a completion handler, and pushes it onto a <code>std::forward_list</code> of in-flight operations before starting it.</p>
+
+    <p>This is the one place where the GUI's file resolution differs materially from a CLI counterpart. The CLI's <code>AdhocUploadOperationCommand</code> resolves paths against a hand-supplied set of media directories; the GUI always resolves through the media set manager, which is why the <em>Upload Operation</em> action stays disabled until the startup scan finishes.</p>
+  </div>
+</section>
+
+<section id="s12">
+  <span class="sec-no">12 — Media defined download</span>
+  <h2>Media Defined Download: host names the files</h2>
+  <div class="prose">
+    <p>Four pages. The settings page is the richest in the application: target selection, download base directory, a "create download directory" toggle, a free-text user-defined-data field, and an add/remove file list backed by a <code>DownloadFilesModel</code>.</p>
+
+    <p>The wizard drives the operation off page transitions rather than an explicit button:</p>
+
+    <pre><code>void MediaDefinedDownloadOperationWizard::pageChanged( const int pageId )
+{
+  switch ( Pages{ pageId } )
+  {
+    case Pages::Status: startOperation(); break;
+    default: break;
+  }
+}</code></pre>
+
+    <p>and <code>startOperation()</code> passes four arguments rather than two — the download directory and the create-directory flag join the target:</p>
+
+    <pre><code>operationV-&gt;startOperation( targetAddressV, targetIdV, downloadBaseDirectoryV, createDownloadDirectoryV );</code></pre>
+
+    <p>The adapter creates the directory, seeds a <code>Host::DownloadInformation</code> record, and builds the operation. When the target accepts, the wizard sends the requested file list and the user-defined data through <code>transmitFiles()</code> — the same accepted-once pattern as upload's load list.</p>
+
+    <h3>Receiving</h3>
+    <p><code>MediaDefinedDownloadOperation::fileRequest()</code> at <code>operations/MediaDefinedDownloadOperation.cpp:207</code> mirrors upload's, inverted: <code>StreamFile</code> in <code>Receive</code> mode, path built from the download directory and <code>Helper::normaliseFilename( filename )</code>, and each completion recorded against the <code>DownloadInformation</code> as <code>TransferOk</code> with a byte count or <code>TransferError</code>.</p>
+
+    <p><code>finished()</code> writes the download information record to disk, honouring the configuration's <code>verifyDownloadFiles</code> flag, before emitting <code>operationFinished</code>. That record is the auditable artefact of the download — the same file the CLI writes — and it is produced identically by both front ends.</p>
+  </div>
+</section>
+
+<section id="s13">
+  <span class="sec-no">13 — Operator defined download</span>
+  <h2>Operator Defined Download: target advertises first</h2>
+  <div class="prose">
+    <p>The five-page outlier, and the only wizard whose middle page cannot be filled in before the operation starts.</p>
+
+    <p>In this operation the target tells the host what is available for download, and only then does the operator choose. So the wizard starts the operation on the way <em>into</em> the select-files page, populates <code>availableFiles</code> from a <code>DownloadFilesInformationModel</code> as the target's list arrives, and gates <em>Commit</em> on a selection existing:</p>
+
+    <pre><code>bool OperatorDefinedDownloadOperationSelectFilesPage::isComplete() const
+{
+  return aborted || !uiV-&gt;availableFiles-&gt;selectionModel()-&gt;selectedRows().isEmpty();
+}</code></pre>
+
+    <p>The <code>aborted ||</code> disjunction is the subtle part. Without it, an operator who aborts while the target's list is still empty would be stuck on a page whose <em>Commit</em> never enables. The flag lets the page report itself complete so the wizard can advance to the completed page and show why it stopped.</p>
+
+    <p><code>initializePage()</code> reconfigures the wizard's button box for the same reason:</p>
+
+    <pre><code>wizard()-&gt;setOption( QWizard::HaveCustomButton1, true );   // "Abort Operation"
+wizard()-&gt;setOption( QWizard::NoCancelButton, true );      // remove plain Cancel</code></pre>
+
+    <p>Once the protocol is live, <em>Cancel</em> is the wrong verb — closing the dialogue does not undo a transfer in progress. Replacing it with <em>Abort Operation</em>, wired to the adapter's <code>abortOperation()</code> slot, makes the button mean what it does: send the ARINC 615A abort request and wait for the target to acknowledge it.</p>
+
+    <p>This page also carries its own <code>DownloadStatusLogModel</code>, so status arriving while the operator is still choosing files is not lost.</p>
+  </div>
+</section>
+
+<section id="s14">
+  <span class="sec-no">14 — Models</span>
+  <h2>The arinc_615a_qt model layer</h2>
+  <div class="prose">
+    <p>A separate library from <code>arinc_615a_dla_qt</code>, and deliberately so: it depends only on <code>arinc_615a</code> and <code>Qt::Widgets</code>, carries no application state, and is reusable by any Qt program that needs to display ARINC 615A types.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Class</th><th>Presents</th></tr></thead>
+      <tbody>
+        <tr><td class="m">TargetsInformationModel</td><td>FIND responses — address, target ID, THW ID, type name, position, literal name, manufacturer code</td></tr>
+        <tr><td class="m">TargetsHardwareModel</td><td>Target hardware from a Load Configuration List file</td></tr>
+        <tr><td class="m">PartNumbersModel</td><td>Part numbers reported by a target</td></tr>
+        <tr><td class="m">InformationStatusLogModel</td><td>Accumulated information-operation status files</td></tr>
+        <tr><td class="m">UploadStatusLogModel</td><td>Accumulated upload status files</td></tr>
+        <tr><td class="m">UploadLoadsStatusModel</td><td>Per-load status within an upload — header filename, part number, ratio, code</td></tr>
+        <tr><td class="m">DownloadStatusLogModel</td><td>Accumulated download status files</td></tr>
+        <tr><td class="m">DownloadFilesModel</td><td>Files the operator has asked for (media defined)</td></tr>
+        <tr><td class="m">DownloadFilesInformationModel</td><td>Files the target advertises (operator defined)</td></tr>
+        <tr><td class="m">DownloadFilesStatusModel</td><td>Per-file status within a download</td></tr>
+        <tr><td class="m">FindPacketStatisticModel</td><td>ARINC 615A FIND packet counters</td></tr>
+        <tr><td class="m">ProtocolFileStatisticModel</td><td>ARINC 615A protocol file counters</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p>Alongside them sit <code>StatusCode.hpp</code> — a translation helper turning <code>Arinc615a::StatusCode</code> into display strings — and two dialogues, <code>TargetListDialog</code> and <code>TargetDetailsDialog</code>.</p>
+
+    <p>The three "status log" models are append-only. Each ARINC 615A status file the target sends becomes a row rather than replacing the previous one, which gives the operator the operation's whole history. The CLI has no equivalent; its status output is a stream.</p>
+
+    <p>Both Qt libraries write a stub <code>.clang-tidy</code> into their binary directories:</p>
+
+    <pre><code>file( WRITE ${CMAKE_CURRENT_BINARY_DIR}/.clang-tidy "Checks: '-*,llvm-twine-local'" )</code></pre>
+
+    <p>That suppresses clang-tidy on AUTOMOC and AUTOUIC output, which is machine-generated and would otherwise flood the report. Worth knowing before wondering why generated sources are silent.</p>
+  </div>
+</section>
+
+<section id="s15">
+  <span class="sec-no">15 — State</span>
+  <h2>Targets, settings, persistence</h2>
+  <div class="prose">
+    <p>The application keeps two pieces of state across runs, both JSON, both in the Qt application configuration location — which is why <code>main()</code> sets the organisation name and domain before anything else.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>File</th><th>Written by</th><th>Contents</th></tr></thead>
+      <tbody>
+        <tr><td class="m">DataLoader.json</td><td class="m">saveDataLoaderConfiguration()</td><td>FIND configuration and timeout, ARINC 615A configuration, DLP timeout, port option, media set directory, download base directory, verify flag</td></tr>
+        <tr><td class="m">Targets.json</td><td class="m">saveTargets()</td><td>Target address information list — the same schema as the CLI's <code>--targets-list</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p><code>DataLoaderConfiguration</code> is a plain struct with <code>fromProperties()</code> / <code>toProperties()</code> over a <code>boost::property_tree</code>, embedding the core's own <code>Arinc615a::Arinc615aConfiguration</code> and <code>Find::FindConfiguration</code> objects wholesale. It is the GUI's replacement for the CLI's per-command <code>options_description</code>, and it holds exactly the same fields — the difference is that the GUI captures them once in a settings dialogue instead of on every command line.</p>
+
+    <p><code>loadDataLoaderConfiguration()</code> returns a default-constructed configuration if the file is missing or unparseable, so a first run needs no setup. A separate <code>QSettings</code> key, <code>CheckIntegrityOnStartup</code> (default <code>true</code>), controls whether the media set scan verifies check values.</p>
+
+    <p>Persistence happens in the <code>DataLoaderMainWindow</code> destructor, after the I/O thread has been joined, and is itself wrapped in a try/catch that degrades to a warning box — a configuration write failure should not turn a clean shutdown into a crash.</p>
+  </div>
+</section>
+
+<section id="s16">
+  <span class="sec-no">16 — Resources</span>
+  <h2>Icons and the resource archives</h2>
+  <div class="prose">
+    <p><code>lib/arinc_615a_dla_qt/resources/</code> holds an SVG set compiled into the binary through <code>arinc_615a_dla_qt_resources.qrc</code> and <code>CMAKE_AUTORCC</code>. Two sizes per concept: a full-bleed artwork used as the wizard <code>LogoPixmap</code>, and an <code>_icon</code> variant for toolbar and menu use.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Resource</th><th>Used for</th></tr></thead>
+      <tbody>
+        <tr><td class="m">arinc615a_icon.svg</td><td>Application and About dialogue</td></tr>
+        <tr><td class="m">arinc615a_find_query[_icon].svg</td><td>FIND query action and wizard</td></tr>
+        <tr><td class="m">arinc615a_information_operation[_icon].svg</td><td>Information action and wizard</td></tr>
+        <tr><td class="m">arinc615a_upload_operation[_icon].svg</td><td>Upload action and wizard</td></tr>
+        <tr><td class="m">arinc615a_media_defined_download_operation[_icon].svg</td><td>Media defined download</td></tr>
+        <tr><td class="m">arinc615a_operator_defined_download_operation[_icon].svg</td><td>Operator defined download</td></tr>
+        <tr><td class="m">arinc615a_target[_add|_edit|_remove].svg</td><td>Target list dialogue</td></tr>
+        <tr><td class="m">arinc615a_settings.svg</td><td>Settings action</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p>Three archives are registered at startup and all three are needed: <code>QtIconResources</code> supplies the generic icon set, <code>Arinc665Qt::Resources</code> the media set manager's icons, <code>Arinc615aDlaQt::Resources</code> the ones above. SVG rendering requires the <code>Qt6Svg</code> module and its <code>qsvg</code> image-format plugin at runtime — miss the plugin and every toolbar button renders blank while the application otherwise works normally.</p>
+  </div>
+</section>
+
+<section id="s17">
+  <span class="sec-no">17 — Isolation</span>
+  <h2>Isolating the CLI from the GUI</h2>
+  <div class="prose">
+    <p>Upstream, both sections build together and Qt's presence alone decides whether the graphical half appears. That is convenient but implicit: there is no way to say "build the GUI and nothing else", and a CLI build on a machine that happens to have Qt installed silently acquires the Qt libraries.</p>
+
+    <p>Two options make the split explicit. <code>CMakeLists.txt</code>:</p>
+
+    <pre><code>option( ARINC_615A_BUILD_CLI "Build the ARINC 615A command-line section" ON )
+option( ARINC_615A_BUILD_GUI "Build the ARINC 615A graphical section (requires Qt 6)" OFF )
+
+if( NOT ARINC_615A_BUILD_CLI AND NOT ARINC_615A_BUILD_GUI )
+  message( FATAL_ERROR "Enable at least one of ARINC_615A_BUILD_CLI / ARINC_615A_BUILD_GUI" )
+endif()</code></pre>
+
+    <p>They gate four places.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>File</th><th>Gated on CLI</th><th>Gated on GUI</th></tr></thead>
+      <tbody>
+        <tr><td class="m">CMakeLists.txt</td><td>—</td><td><code>qt_icon_resources</code> declaration and its place in <code>FetchContent_MakeAvailable</code></td></tr>
+        <tr><td class="m">lib/CMakeLists.txt</td><td><code>arinc_615a_commands</code></td><td><code>arinc_615a_qt</code>, <code>arinc_615a_dla_qt</code></td></tr>
+        <tr><td class="m">app/CMakeLists.txt</td><td><code>arinc_615a_operation</code></td><td><code>arinc_615a_data_loader_gui</code></td></tr>
+        <tr><td class="m">InstallPackage.cmake</td><td colspan="2"><code>if( TARGET ... )</code> guards around each section library in the runtime-dependency directory list</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p><code>lib/arinc_615a</code> is added unconditionally — it is the shared core, and both sections are meaningless without it.</p>
+
+    <p>The <code>InstallPackage.cmake</code> change is the one that is easy to miss. Its <code>LIBS</code> list originally named <code>$&lt;TARGET_FILE_DIR:arinc_615a_commands&gt;</code> unconditionally, and a generator expression naming a target that was never added is a hard configure error, not a warning:</p>
+
+    <pre><code>CMake Error: Error evaluating generator expression:
+    $&lt;TARGET_FILE_DIR:arinc_615a_commands&gt;
+  No target "arinc_615a_commands"</code></pre>
+
+    <p>The fix is to build the list conditionally:</p>
+
+    <pre><code>if( TARGET arinc_615a_commands )
+  list( APPEND LIBS $&lt;TARGET_FILE_DIR:arinc_615a_commands&gt; )
+endif()
+
+if( TARGET arinc_615a_qt )
+  list( APPEND LIBS $&lt;TARGET_FILE_DIR:arinc_615a_qt&gt; )
+endif()
+
+if( TARGET arinc_615a_dla_qt )
+  list( APPEND LIBS $&lt;TARGET_FILE_DIR:arinc_615a_dla_qt&gt; )
+endif()</code></pre>
+
+    <h3>What isolation actually buys</h3>
+    <p>The build sizes are the measurement. A GUI-only configure produces <strong>306</strong> Ninja edges to reach <code>arinc_615a_data_loader_gui</code>; a CLI-only configure produces <strong>214</strong> to reach <code>arinc_615a_operation</code>. Neither set contains any part of the other section — no <code>arinc_615a_commands</code> in the GUI build, no <code>arinc_615a_qt</code> in the CLI build — and the CLI configure resolves five <code>FetchContent</code> dependencies instead of six.</p>
+  </div>
+</section>
+
+<section id="s18">
+  <span class="sec-no">18 — Building</span>
+  <h2>Building the GUI section</h2>
+  <div class="prose">
+    <h3>Getting Qt</h3>
+    <p>The upstream <code>vcpkg.json</code> offers a <code>with-qt</code> feature pulling <code>qtbase</code> and <code>qtsvg</code>. It works, and it compiles Qt from source — hours, and tens of gigabytes of build trees. The prebuilt binaries are the better trade here:</p>
+
+    <pre><code>python -m pip install aqtinstall
+python -m aqt install-qt windows desktop 6.8.3 win64_msvc2022_64 -O &lt;prefix&gt;/Qt</code></pre>
+
+    <p>76 seconds, and it matches the MSVC 14.44 toolchain the rest of the tree uses.</p>
+
+    <div class="note warn">
+      <span class="lbl">Gotcha</span>
+      <p>Adding <code>-m qtsvg</code> fails with <em>"The packages ['qtsvg'] were not found while parsing XML of package information"</em>. Qt SVG is part of the base package for 6.8.3 — install without the module argument and <code>Qt6Svg</code> is present in <code>lib/cmake</code> regardless.</p>
+    </div>
+
+    <h3>The preset</h3>
+    <p><code>msvc-static-debug-gui</code> in <code>CMakePresetsMsvc.json</code> inherits <code>msvc-base</code> and overrides four things:</p>
+
+    <pre><code>"binaryDir": "cmake-build-msvc-static-debug-gui",
+"cacheVariables": {
+  "CMAKE_BUILD_TYPE": "Debug",
+  "ARINC_615A_BUILD_CLI": "OFF",
+  "ARINC_615A_BUILD_GUI": "ON",
+  "CMAKE_PREFIX_PATH": "$env{QT6_DIR}",
+  "CMAKE_COMPILE_WARNING_AS_ERROR": "False"
+}</code></pre>
+
+    <p>A distinct <code>binaryDir</code> keeps the existing CLI build tree untouched. The Qt prefix comes from an environment variable rather than a hard-coded path so the preset stays portable. The build preset restricts targets to <code>arinc_615a_data_loader_gui</code>, which is what keeps the ARINC 665 GUI applications — also made available by <code>FetchContent</code> — out of the build.</p>
+
+    <p>Warnings-as-errors is relaxed for this preset because AUTOMOC and AUTOUIC generated translation units and the Qt headers do not survive <code>/W4 /WX</code>. This is a property of building Qt code with this toolchain, not of the section split.</p>
+
+    <h3>Result</h3>
+    <p>306 build steps, no errors, producing a 29&nbsp;MB debug executable at<br>
+    <code>cmake-build-msvc-static-debug-gui/app/arinc_615a_data_loader_gui/arinc_615a_data_loader_gui.exe</code>.</p>
+
+    <div class="note warn">
+      <span class="lbl">Path length</span>
+      <p>CMake warns that object paths for the three ARINC 665 GUI applications under <code>_deps/arinc_665-build/app/</code> reach 215–219 characters against a 250-character <code>CMAKE_OBJECT_PATH_MAX</code>. They are warnings, and those targets are outside the build set, so the GUI build is unaffected. Building the full ARINC 665 application set from this location would need a checkout nearer the drive root.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s19">
+  <span class="sec-no">19 — Running</span>
+  <h2>Deploying and launching</h2>
+  <div class="prose">
+    <p>A freshly built executable will not start from the build tree — two sets of runtime libraries are missing.</p>
+
+    <h3>Qt</h3>
+    <pre><code>"$QT6_DIR/bin/windeployqt.exe" --debug --no-translations --no-opengl-sw \
+  cmake-build-msvc-static-debug-gui/app/arinc_615a_data_loader_gui/arinc_615a_data_loader_gui.exe</code></pre>
+
+    <p>Copies <code>Qt6Cored</code>, <code>Qt6Guid</code>, <code>Qt6Widgetsd</code>, <code>Qt6Networkd</code>, <code>Qt6Svgd</code> and <code>D3Dcompiler_47</code>, plus five plugin directories: <code>platforms</code> (<code>qwindowsd</code>), <code>styles</code> (<code>qmodernwindowsstyled</code>), <code>imageformats</code> (<code>qsvgd</code>, <code>qicod</code>, <code>qjpegd</code>), <code>tls</code> and <code>networkinformation</code>. The <code>qsvgd</code> plugin is the one that matters most — without it the application runs but every icon is blank.</p>
+
+    <h3>vcpkg</h3>
+    <p><code>msvc-base</code> sets <code>VCPKG_APPLOCAL_DEPS=OFF</code>, so Boost, libxml++, spdlog and their dependencies are not copied next to the executable. Put <code>cmake-build-msvc-static-debug-gui/vcpkg_installed/x64-windows/debug/bin</code> on <code>PATH</code> — nineteen DLLs including the Boost <code>-mt-gd-x64-1_92</code> set, <code>libxml2</code>, <code>xml++-vc143-5.0-1</code> and <code>spdlogd</code>.</p>
+
+    <p><code>run-gui.bat</code> does this and launches.</p>
+
+    <h3>First run</h3>
+    <p>The window comes up with three empty statistic group boxes, a menu bar of <em>Targets / Operations / Manage</em>, and three toolbars. <em>Upload Operation</em> and <em>Manage Media Sets</em> are greyed until the media set scan finishes. Diagnostics go to <code>%TEMP%/arinc_615a_data_loader_gui.log</code> at <code>info</code> level.</p>
+
+    <p>Confirming the stack end to end takes one FIND query: <em>Targets → FIND Query</em>, accept the broadcast address, <em>Commit</em>. After the receive timeout, <em>Finish</em> enables; closing the wizard refreshes the statistics and the FIND TX table shows the request that went out.</p>
+  </div>
+</section>
+
+<section id="s20">
+  <span class="sec-no">20 — Comparison</span>
+  <h2>Same protocol, different driver</h2>
+  <div class="prose">
+    <p>For anyone arriving from the CLI trace, the mapping is one-to-one.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>CLI</th><th>GUI</th><th>Shared</th></tr></thead>
+      <tbody>
+        <tr><td class="m">FindQueryCommand</td><td class="m">FindQuery + FindQueryWizard</td><td class="m">Find::Clients::Query</td></tr>
+        <tr><td class="m">InformationOperationCommand</td><td class="m">InformationOperation + wizard</td><td class="m">Host::InformationOperation</td></tr>
+        <tr><td class="m">UploadOperationCommand / Adhoc…</td><td class="m">UploadOperation + wizard</td><td class="m">Host::UploadOperation</td></tr>
+        <tr><td class="m">MediaDefinedDownloadOperationCommand</td><td class="m">MediaDefinedDownloadOperation + wizard</td><td class="m">Host::MediaDefinedDownloadOperation</td></tr>
+        <tr><td class="m">OperatorDefinedDownloadOperationCommand</td><td class="m">OperatorDefinedDownloadOperation + wizard</td><td class="m">Host::OperatorDefinedDownloadOperation</td></tr>
+        <tr><td class="m">ListTargetsCommand</td><td class="m">TargetListDialog</td><td class="m">Find::TargetsAddressInformation</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p>Every row shares the third column verbatim. The GUI adds no protocol behaviour and removes none; a packet capture of an information operation is indistinguishable between the two.</p>
+
+    <h3>Where each is the better tool</h3>
+    <p>The CLI wins on scripting and on batch upload — <code>BatchUploadOperationCommand</code> and <code>UploadLoadsOperationCommand</code> have no GUI equivalent, and the GUI has no headless mode. It also wins on reproducibility: a command line is a record of exactly what was done.</p>
+    <p>The GUI wins on discovery and on long operations. Broadcast address enumeration, a retained status log rather than a scrolling stream, per-file and per-load progress tables, and target details persisted between sessions all matter more as an operation gets longer and as the operator gets less familiar with the equipment.</p>
+    <p>They are not alternatives so much as two front ends kept honest by a shared core — which is exactly why the section split is worth making explicit in the build.</p>
+  </div>
+</section>
+
+<section id="s21">
+  <span class="sec-no">21 — Findings</span>
+  <h2>Observations from the trace</h2>
+  <div class="prose">
+    <p>Three things worth recording. None blocked the build or the run.</p>
+
+    <h3>1. Qt widgets constructed on the I/O thread</h3>
+    <div class="note warn">
+      <span class="lbl">Thread affinity</span>
+      <p>Qt requires that <code>QWidget</code> instances be created and used only on the GUI thread. Three code paths violate this.</p>
+    </div>
+    <p><code>DataLoaderMainWindow</code>'s I/O thread body wraps <code>ioContext.run()</code> in two catch blocks, and both call <code>QMessageBox::critical</code> followed by <code>QApplication::exit()</code> — from the I/O thread:</p>
+
+    <pre><code>ioThread = std::jthread{ [ this ] {
+  try { ioContext.run(); }
+  catch ( const boost::exception &amp;e ) {
+    QMessageBox::critical( nullptr, tr( "ARINC 615A I/O Task Exception" ), ... );
+    QApplication::exit(); }
+  catch ( ... ) { ... } } };</code></pre>
+
+    <p>The same pattern appears in <code>MediaDefinedDownloadOperation::finished()</code> (line 193) and <code>OperatorDefinedDownloadOperation::finished()</code> (line 194) — both are handler callbacks, therefore both run on the I/O thread, and both raise a message box in their catch blocks.</p>
+    <p>All three are error paths, which is why they do not show up in normal operation. The fix in each case is the same shape the rest of the file already uses: emit a signal and let a queued slot on the GUI thread show the dialogue.</p>
+    <p>The remaining fifteen <code>QMessageBox</code> call sites in <code>operations/</code> are inside <code>startOperation</code>, <code>abortOperation</code>, <code>transmitLoads</code> and <code>transmitFiles</code> — all slots invoked from the GUI thread, all correct.</p>
+
+    <h3>2. isComplete() emits a signal</h3>
+    <p><code>FindQuerySelectAddressPage::isComplete()</code> is a <code>const</code> predicate that Qt calls whenever completeness might have changed, and it emits <code>targetAddressChanged</code> as a side effect on its success path. It works — the receiver only caches the value — but a query method that fires signals is fragile: Qt makes no promise about how often it calls <code>isComplete()</code>. Emitting from the combo box's <code>currentTextChanged</code> handler instead would be equivalent and self-evidently safe.</p>
+
+    <h3>3. Statistics refresh only on wizard close</h3>
+    <p>The main window's counters update solely from wizard <code>finished</code> signals. During a long upload, the operator sees no packet activity on the main window at all — the wizard's own progress tables are the only live feedback. Defensible, given the alternative is polling process-global counters concurrently with the I/O thread writing them, but it does mean the main window's tables are a post-hoc summary rather than a monitor. Worth knowing before reading them as live.</p>
+
+    <h3>Not a defect</h3>
+    <p>The FIND address combo box shows its default <code>255.255.255.255</code> against a red-orange background on first display. That is the Windows 11 dark-theme text-selection colour on pre-selected combo text, not a validation failure — <code>isComplete()</code> accepts the value and <em>Commit</em> is enabled.</p>
+  </div>
+</section>
+
+<section id="s22">
+  <span class="sec-no">22 — References</span>
+  <h2>Sources</h2>
+  <div class="prose">
+    <h3>Traced in this working copy</h3>
+    <ul class="tight">
+      <li><code>app/arinc_615a_data_loader_gui/</code> — application entry point</li>
+      <li><code>lib/arinc_615a_dla_qt/</code> — main window, configuration, five adapters, four wizards, resources</li>
+      <li><code>lib/arinc_615a_qt/</code> — twelve models, two dialogues, status-code translation</li>
+      <li><code>CMakeLists.txt</code>, <code>lib/CMakeLists.txt</code>, <code>app/CMakeLists.txt</code>, <code>InstallPackage.cmake</code>, <code>CMakePresetsMsvc.json</code> — section switching</li>
+    </ul>
+
+    <h3>Companion documents</h3>
+    <ul class="tight">
+      <li>ARINC 615A CLI Engineering Trace — the protocol core, the wire layers, status codes</li>
+      <li><code>doc/GUI_BUILD_AND_RUN.md</code> — the build and run procedure in reproducible form</li>
+    </ul>
+
+    <h3>Standards</h3>
+    <ul class="tight">
+      <li>ARINC 615A-4 — Software Data Loader Using Ethernet Interface</li>
+      <li>ARINC 665-5 — Loadable Software Standards</li>
+      <li>ARINC 649 — Common Terminology and Functions for Software Distribution and Loading</li>
+    </ul>
+
+    <h3>Toolchain as exercised</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Component</th><th>Version</th></tr></thead>
+        <tbody>
+          <tr><td>MSVC</td><td class="m">14.44.35207 (VS 2022 Build Tools)</td></tr>
+          <tr><td>CMake</td><td class="m">4.3.4</td></tr>
+          <tr><td>Qt</td><td class="m">6.8.3 msvc2022_64</td></tr>
+          <tr><td>Boost</td><td class="m">1.92 (vcpkg, x64-windows)</td></tr>
+          <tr><td>Generator</td><td class="m">Ninja</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+

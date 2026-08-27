@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Thomas Vogt</author>
+ <class>Arinc615aDlaQt::FindQueryWizard</class>
+ <widget class="QWizard" name="Arinc615aDlaQt::FindQueryWizard">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>FIND Operation</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/arinc_615a_dla_qt_resources.qrc">
+    <normaloff>:/arinc615a_find_query_icon.svg</normaloff>:/arinc615a_find_query_icon.svg</iconset>
+  </property>
+  <property name="wizardStyle">
+   <enum>QWizard::ModernStyle</enum>
+  </property>
+  <property name="options">
+   <set>QWizard::NoBackButtonOnLastPage|QWizard::NoBackButtonOnStartPage|QWizard::NoCancelButtonOnLastPage</set>
+  </property>
+  <widget class="Arinc615aDlaQt::FindQuerySelectAddressPage" name="selectAddress"/>
+  <widget class="Arinc615aDlaQt::FindQueryResultsPage" name="results"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Arinc615aDlaQt::FindQuerySelectAddressPage</class>
+   <extends>QWizardPage</extends>
+   <header location="global">arinc_615a_dla_qt/find/FindQuerySelectAddressPage.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Arinc615aDlaQt::FindQueryResultsPage</class>
+   <extends>QWizardPage</extends>
+   <header location="global">arinc_615a_dla_qt/find/FindQueryResultsPage.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../resources/arinc_615a_dla_qt_resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

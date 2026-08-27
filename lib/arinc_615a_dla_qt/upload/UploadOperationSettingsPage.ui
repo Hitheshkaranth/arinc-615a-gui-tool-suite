@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Thomas Vogt</author>
+ <class>Arinc615aDlaQt::UploadOperationSettingsPage</class>
+ <widget class="QWizardPage" name="Arinc615aDlaQt::UploadOperationSettingsPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="title">
+   <string>Upload Operation Settings</string>
+  </property>
+  <property name="subTitle">
+   <string>Configures parameters for ARINC 615A Upload Operation.</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="Arinc615aDlaQt::SelectTargetWidget" name="targetSettings" native="true"/>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbMediaSetLoads">
+     <property name="title">
+      <string>Media Set and Loads</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_4">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblMediaSet">
+        <property name="text">
+         <string>Media Set</string>
+        </property>
+        <property name="buddy">
+         <cstring>mediaSet</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lblLoads">
+        <property name="text">
+         <string>Loads</string>
+        </property>
+        <property name="buddy">
+         <cstring>loads</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QTableView" name="loads">
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SelectionMode::MultiSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+        </property>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="mediaSet"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Arinc615aDlaQt::SelectTargetWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">arinc_615a_dla_qt/SelectTargetWidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>mediaSet</tabstop>
+  <tabstop>loads</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

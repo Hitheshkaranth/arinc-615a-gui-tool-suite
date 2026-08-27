@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svg4290"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="arinc615a_find_query.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview4292"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="9.1699221"
+     inkscape:cx="37.623002"
+     inkscape:cy="29.771245"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid13"
+       empspacing="8" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4287" />
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-102.5981,-83.173336)">
+    <g
+       id="g4718"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:125%;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.81169017,0,0,0.81183465,46.165774,-314.94187)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4720"
+         d="m 77.899275,494.36384 c -0.357143,-0.35714 -1.25,0 -1.785715,0.53571 l -0.892857,0.89286 -3.710937,-0.88728 c -0.0558,-0.0167 -0.122768,0.006 -0.167411,0.0446 l -0.714286,0.71428 c -0.03906,0.0391 -0.0558,0.10045 -0.05022,0.15067 0.01116,0.0558 0.04464,0.10603 0.09487,0.13393 l 2.834821,1.55692 -1.445312,1.44531 -1.082589,-0.29576 c -0.01116,-0.006 -0.0279,-0.006 -0.04464,-0.006 -0.04464,0 -0.09487,0.0167 -0.128348,0.0502 l -0.535715,0.54129 c -0.03348,0.0391 -0.0558,0.0893 -0.05022,0.13951 0.0056,0.0502 0.0279,0.10045 0.07255,0.12835 l 1.40625,1.05469 1.054687,1.40625 c 0.03348,0.0446 0.07813,0.067 0.133929,0.0725 0.0056,0 0.0056,0 0.01116,0 0.04464,0 0.09487,-0.0167 0.128348,-0.0502 l 0.535714,-0.53572 c 0.04464,-0.0502 0.06138,-0.1116 0.04464,-0.17299 l -0.295759,-1.08259 1.445312,-1.44531 1.55692,2.83482 c 0.02232,0.0502 0.06696,0.0781 0.117188,0.0893 0.01674,0.006 0.0279,0.006 0.03906,0.006 0.03906,0 0.07813,-0.0112 0.106027,-0.0335 l 0.714286,-0.53572 c 0.0558,-0.0446 0.0837,-0.11719 0.06696,-0.18415 l -0.892857,-3.88393 0.898437,-0.89844 c 0.535715,-0.53571 0.892857,-1.42857 0.535715,-1.78571 z" />
+    </g>
+    <g
+       id="g5050"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:45px;line-height:125%;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.11397437,0,0,0.11397437,97.29915,50.923072)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5048"
+         d="m 137.02818,361.88923 c 0,6.20257 -5.04743,11.25 -11.25,11.25 -6.20257,0 -11.25,-5.04743 -11.25,-11.25 0,-6.20257 5.04743,-11.25 11.25,-11.25 6.20257,0 11.25,5.04743 11.25,11.25 z m 12.85714,20.89286 c 0,-0.8538 -0.35156,-1.68248 -0.92913,-2.26005 l -8.61328,-8.61328 c 2.03404,-2.93806 3.11384,-6.45368 3.11384,-10.01953 0,-9.76842 -7.91015,-17.67857 -17.67857,-17.67857 -9.76841,0 -17.67857,7.91015 -17.67857,17.67857 0,9.76842 7.91016,17.67857 17.67857,17.67857 3.56585,0 7.08147,-1.0798 10.01953,-3.11384 l 8.61328,8.58817 c 0.57757,0.60268 1.40625,0.95424 2.26005,0.95424 1.75781,0 3.21428,-1.45647 3.21428,-3.21428 z" />
+    </g>
+  </g>
+</svg>

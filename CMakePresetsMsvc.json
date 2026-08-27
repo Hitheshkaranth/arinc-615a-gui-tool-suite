@@ -1,0 +1,80 @@
+{
+  "version": 10,
+  "configurePresets": [
+    {
+      "name": "msvc-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "cmake-build-${presetName}",
+      "installDir": "cmake-install-${presetName}",
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "VCPKG_APPLOCAL_DEPS": "OFF",
+        "CMAKE_PREFIX_PATH": "$env{QT6_DIR}",
+        "CMAKE_COMPILE_WARNING_AS_ERROR": "False"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "msvc-static-debug-gui",
+      "displayName": "MSVC Static Debug - GUI",
+      "description": "Debug build of the ARINC 615A graphical data loader. Requires Qt 6 - point QT6_DIR at the Qt prefix, e.g. C:/Qt/6.8.3/msvc2022_64.",
+      "inherits": "msvc-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "msvc-static-release-gui",
+      "displayName": "MSVC Static Release - GUI",
+      "description": "Release build of the ARINC 615A graphical data loader.",
+      "inherits": "msvc-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "msvc-static-debug-gui",
+      "displayName": "MSVC Static Debug GUI Build",
+      "configurePreset": "msvc-static-debug-gui",
+      "targets": [
+        "arinc_615a_data_loader_gui"
+      ]
+    },
+    {
+      "name": "msvc-static-release-gui",
+      "displayName": "MSVC Static Release GUI Build",
+      "configurePreset": "msvc-static-release-gui",
+      "targets": [
+        "arinc_615a_data_loader_gui"
+      ]
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "msvc-static-debug-gui",
+      "displayName": "MSVC Static Debug GUI Workflow",
+      "description": "Configure and build the graphical data loader",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "msvc-static-debug-gui"
+        },
+        {
+          "type": "build",
+          "name": "msvc-static-debug-gui"
+        }
+      ]
+    }
+  ]
+}
